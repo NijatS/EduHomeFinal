@@ -1,0 +1,34 @@
+﻿@model Teacher
+
+<div class="container">
+	<form method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		    <label asp-for="@Model.Name" >Title:</label>
+			<input type="text" class="form-control" asp-for="@Model.Name"/>
+			<span asp-validation-for="Name" class="text text-danger"></span>
+	</div>
+		<div class="form-group">
+			<label asp-for="Name">Categories</label>
+			<select multiple asp-for="Name" class="form-select" aria-label="Default select example">
+				@foreach (var item in ViewBag.Positions)
+				{
+					<option value="@item.Id">@item.Name</option>
+				}
+			</select>
+			<span asp-validation-for="Name" class="text text-danger"></span>
+
+		</div>
+		<div class="form-group">
+			<label asp-for="ExperienceYear">ExperienceYear:</label>
+			<input class="form-control" asp-for="ExperienceYear" />
+			<span asp-validation-for="ExperienceYear" class="text text-danger"></span>
+		</div>
+	<div class="form-group">
+		    <label asp-for="@Model.file" >File:</label>
+			<input type="file" class="form-control" asp-for="@Model.file"/>
+			<span asp-validation-for="file" class="text text-danger"></span>
+		</div>
+			@Html.AntiForgeryToken()
+		<button type="submit">Create</button>
+	</form>
+</div>

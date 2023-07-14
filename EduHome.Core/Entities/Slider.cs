@@ -16,7 +16,7 @@ namespace EduHome.Core.Entities
         public string Title { get; set; }
         [Required]
         public string Text { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
         public string Link { get; set; }
         [NotMapped]
         public IFormFile? file { get; set; }

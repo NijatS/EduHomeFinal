@@ -1,5 +1,4 @@
 ﻿using EduHome.Core.Models;
-using Fir.Core.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using System;
@@ -16,6 +15,8 @@ namespace EduHome.Core.Entities
 	{
 		[Required]
 		public string Name { get; set; }
+		[Required]
+		public string Description { get; set; }
 		[Required]
 		public string AboutText { get; set; }
 		[Required]
@@ -48,6 +49,6 @@ namespace EduHome.Core.Entities
 		public List<int> TagIds { get; set; }
 		public string? Image { get; set; }
 		[NotMapped]
-		public IFormFile file { get; set; }
+		public IFormFile? file { get; set; }
 	}
 }

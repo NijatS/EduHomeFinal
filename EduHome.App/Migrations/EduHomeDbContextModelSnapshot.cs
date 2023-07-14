@@ -83,6 +83,10 @@ namespace EduHome.App.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -116,6 +120,32 @@ namespace EduHome.App.Migrations
                     b.HasIndex("CourseLanguageId");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.CourseAssests", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseAssests");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.CourseCategory", b =>
@@ -461,7 +491,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tag");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Teacher", b =>
@@ -609,35 +639,9 @@ namespace EduHome.App.Migrations
                     b.ToTable("TeacherSocials");
                 });
 
-            modelBuilder.Entity("Fir.Core.Entities.CourseAssests", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CourseAssests");
-                });
-
             modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
                 {
-                    b.HasOne("Fir.Core.Entities.CourseAssests", "courseAssests")
+                    b.HasOne("EduHome.Core.Entities.CourseAssests", "courseAssests")
                         .WithMany("Courses")
                         .HasForeignKey("CourseAssestsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -780,6 +784,11 @@ namespace EduHome.App.Migrations
                     b.Navigation("courseTags");
                 });
 
+            modelBuilder.Entity("EduHome.Core.Entities.CourseAssests", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
             modelBuilder.Entity("EduHome.Core.Entities.CourseLanguage", b =>
                 {
                     b.Navigation("Courses");
@@ -822,11 +831,6 @@ namespace EduHome.App.Migrations
                     b.Navigation("teacherSkills");
 
                     b.Navigation("teacherSocials");
-                });
-
-            modelBuilder.Entity("Fir.Core.Entities.CourseAssests", b =>
-                {
-                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

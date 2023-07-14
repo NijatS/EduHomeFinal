@@ -1,5 +1,4 @@
 ﻿using EduHome.Core.Entities;
-using Fir.Core.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +19,8 @@ namespace EduHome.App.Context
         public DbSet<TeacherSkill> TeacherSkills { get; set; }
         public DbSet<TeacherSocial> TeacherSocials { get; set; }
 		public DbSet<Course> Courses { get; set; }
-		public DbSet<Category> Categories { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Category> Categories { get; set; }
 		public DbSet<CourseAssests> CourseAssests { get; set; }
 		public DbSet<CourseCategory> CourseCategories { get; set; }
 		public DbSet<CourseLanguage> CourseLanguages { get; set; }

@@ -1,7 +1,13 @@
+using EduHome.App.ServiceRegistrations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
+
+builder.Services.Register(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -18,8 +24,23 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 
 app.MapRazorPages();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapAreaControllerRoute(
+        name: "Admin",
+        areaName: "Admin",
+        pattern: "admin/{controller=Home}/{action=Index}/{id?}"
+        );
+    endpoints.MapControllerRoute(
+       name: "default",
+       pattern: "{controller=Home}/{action=Index}/{id?}"
+       );
+}
+);
 
 app.Run();

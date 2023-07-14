@@ -255,3 +255,5 @@ C:\Users\Nijat\source\repos\EduHome.App\EduHome.App\obj\Debug\net7.0\refint\EduH
 C:\Users\Nijat\source\repos\EduHome.App\EduHome.App\obj\Debug\net7.0\EduHome.App.pdb
 C:\Users\Nijat\source\repos\EduHome.App\EduHome.App\obj\Debug\net7.0\EduHome.App.genruntimeconfig.cache
 C:\Users\Nijat\source\repos\EduHome.App\EduHome.App\obj\Debug\net7.0\ref\EduHome.App.dll
+C:\Users\Nijat\source\repos\EduHome.App\EduHome.App\bin\Debug\net7.0\EduHome.Core.dll
+C:\Users\Nijat\source\repos\EduHome.App\EduHome.App\bin\Debug\net7.0\EduHome.Core.pdb

@@ -12,6 +12,9 @@ namespace EduHome.Core.Entities
     {
         [Required]
         public string Name { get; set; }
-        public List<TeacherSocial>? teacherSocials { get; set; }
+        [Required]
+        public string Link { get; set; }
+        public int TeacherId { get; set; }
+        public Teacher? Teacher { get; set; }
     }
 }

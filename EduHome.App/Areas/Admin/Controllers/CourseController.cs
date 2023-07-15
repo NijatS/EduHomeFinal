@@ -22,7 +22,7 @@ namespace EduHome.App.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Course> courses = await _context.Courses.Where(x=>!x.IsDeleted)
-
+                .Include(x=>x.CourseLanguage)
                 .ToListAsync();
             return View(courses);
         }
@@ -205,6 +205,7 @@ namespace EduHome.App.Areas.Admin.Controllers
             updatedCourse.EndDate = course.EndDate;
             updatedCourse.UpdatedDate = DateTime.Now;
             updatedCourse.CourseLanguageId = course.CourseLanguageId;
+            updatedCourse.CourseLanguage = course.CourseLanguage;
 			updatedCourse.CourseAssestsId = course.CourseAssestsId;
 			await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

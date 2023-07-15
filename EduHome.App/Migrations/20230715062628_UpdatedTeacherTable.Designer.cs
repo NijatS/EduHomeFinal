@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduHome.App.Migrations
 {
     [DbContext(typeof(EduHomeDbContext))]
-    [Migration("20230714104124_AddedTeacherandConnectingTables")]
-    partial class AddedTeacherandConnectingTables
+    [Migration("20230715062628_UpdatedTeacherTable")]
+    partial class UpdatedTeacherTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,222 @@ namespace EduHome.App.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("EduHome.Core.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AboutText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Apply")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Certificiation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ClassDuration")
+                        .HasColumnType("float");
+
+                    b.Property<int>("CourseAssestsId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("CourseFee")
+                        .HasColumnType("float");
+
+                    b.Property<int>("CourseLanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SkillLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StudentCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseAssestsId");
+
+                    b.HasIndex("CourseLanguageId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.CourseAssests", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseAssests");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.CourseCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseCategories");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.CourseLanguage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseLanguages");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.CourseTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("CourseTags");
+                });
 
             modelBuilder.Entity("EduHome.Core.Entities.Degree", b =>
                 {
@@ -177,6 +393,9 @@ namespace EduHome.App.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Degree")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -184,10 +403,15 @@ namespace EduHome.App.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Skills");
                 });
@@ -243,6 +467,41 @@ namespace EduHome.App.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Socials");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -252,7 +511,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Socials");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Teacher", b =>
@@ -271,6 +530,9 @@ namespace EduHome.App.Migrations
 
                     b.Property<int>("ExperienceYear")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -326,75 +588,83 @@ namespace EduHome.App.Migrations
                     b.ToTable("TeacherHobbies");
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSkill", b =>
+            modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("EduHome.Core.Entities.CourseAssests", "courseAssests")
+                        .WithMany("Courses")
+                        .HasForeignKey("CourseAssestsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.HasOne("EduHome.Core.Entities.CourseLanguage", "CourseLanguage")
+                        .WithMany("Courses")
+                        .HasForeignKey("CourseLanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Navigation("CourseLanguage");
 
-                    b.Property<int>("Degree")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SkillId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("TeacherSkills");
+                    b.Navigation("courseAssests");
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSocial", b =>
+            modelBuilder.Entity("EduHome.Core.Entities.CourseCategory", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("EduHome.Core.Entities.Category", "Category")
+                        .WithMany("courseCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.HasOne("EduHome.Core.Entities.Course", "Course")
+                        .WithMany("courseCategories")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Navigation("Category");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                    b.Navigation("Course");
+                });
 
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("EduHome.Core.Entities.CourseTag", b =>
+                {
+                    b.HasOne("EduHome.Core.Entities.Course", "Course")
+                        .WithMany("courseTags")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("SocialId")
-                        .HasColumnType("int");
+                    b.HasOne("EduHome.Core.Entities.Tag", "Tag")
+                        .WithMany("courseTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
+                    b.Navigation("Course");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                    b.Navigation("Tag");
+                });
 
-                    b.HasKey("Id");
+            modelBuilder.Entity("EduHome.Core.Entities.Skill", b =>
+                {
+                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
+                        .WithMany("Skills")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasIndex("SocialId");
+                    b.Navigation("Teacher");
+                });
 
-                    b.HasIndex("TeacherId");
+            modelBuilder.Entity("EduHome.Core.Entities.Social", b =>
+                {
+                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
+                        .WithMany("Socials")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.ToTable("TeacherSocials");
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Teacher", b =>
@@ -435,42 +705,26 @@ namespace EduHome.App.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSkill", b =>
+            modelBuilder.Entity("EduHome.Core.Entities.Category", b =>
                 {
-                    b.HasOne("EduHome.Core.Entities.Skill", "Skill")
-                        .WithMany("teacherSkills")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
-                        .WithMany("teacherSkills")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Skill");
-
-                    b.Navigation("Teacher");
+                    b.Navigation("courseCategories");
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSocial", b =>
+            modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
                 {
-                    b.HasOne("EduHome.Core.Entities.Social", "Social")
-                        .WithMany("teacherSocials")
-                        .HasForeignKey("SocialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("courseCategories");
 
-                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
-                        .WithMany("teacherSocials")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("courseTags");
+                });
 
-                    b.Navigation("Social");
+            modelBuilder.Entity("EduHome.Core.Entities.CourseAssests", b =>
+                {
+                    b.Navigation("Courses");
+                });
 
-                    b.Navigation("Teacher");
+            modelBuilder.Entity("EduHome.Core.Entities.CourseLanguage", b =>
+                {
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Degree", b =>
@@ -488,23 +742,18 @@ namespace EduHome.App.Migrations
                     b.Navigation("Teachers");
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.Skill", b =>
+            modelBuilder.Entity("EduHome.Core.Entities.Tag", b =>
                 {
-                    b.Navigation("teacherSkills");
-                });
-
-            modelBuilder.Entity("EduHome.Core.Entities.Social", b =>
-                {
-                    b.Navigation("teacherSocials");
+                    b.Navigation("courseTags");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Teacher", b =>
                 {
+                    b.Navigation("Skills");
+
+                    b.Navigation("Socials");
+
                     b.Navigation("teacherHobbies");
-
-                    b.Navigation("teacherSkills");
-
-                    b.Navigation("teacherSocials");
                 });
 #pragma warning restore 612, 618
         }

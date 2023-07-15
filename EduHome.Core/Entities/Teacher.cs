@@ -25,10 +25,8 @@ namespace EduHome.Core.Entities
         public IFormFile file { get; set; } 
         public Degree? Degree { get; set; }
         public Position? Position { get; set; } 
-        public List<TeacherSkill>? teacherSkills { get; set; }
-        public List<TeacherSocial>? teacherSocials { get; set; }
+        public List<Skill>? Skills { get; set; }
+        public List<Social>? Socials { get; set; }
         public List<TeacherHobby>? teacherHobbies { get; set; }
-
-
     }
 }

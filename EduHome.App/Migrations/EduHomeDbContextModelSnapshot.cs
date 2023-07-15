@@ -390,6 +390,9 @@ namespace EduHome.App.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Degree")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -397,10 +400,15 @@ namespace EduHome.App.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Skills");
                 });
@@ -456,14 +464,23 @@ namespace EduHome.App.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Socials");
                 });
@@ -568,77 +585,6 @@ namespace EduHome.App.Migrations
                     b.ToTable("TeacherHobbies");
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSkill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Degree")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SkillId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("TeacherSkills");
-                });
-
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSocial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SocialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SocialId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("TeacherSocials");
-                });
-
             modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
                 {
                     b.HasOne("EduHome.Core.Entities.CourseAssests", "courseAssests")
@@ -696,6 +642,28 @@ namespace EduHome.App.Migrations
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("EduHome.Core.Entities.Skill", b =>
+                {
+                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
+                        .WithMany("Skills")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.Social", b =>
+                {
+                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
+                        .WithMany("Socials")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("EduHome.Core.Entities.Teacher", b =>
                 {
                     b.HasOne("EduHome.Core.Entities.Degree", "Degree")
@@ -730,44 +698,6 @@ namespace EduHome.App.Migrations
                         .IsRequired();
 
                     b.Navigation("Hobby");
-
-                    b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSkill", b =>
-                {
-                    b.HasOne("EduHome.Core.Entities.Skill", "Skill")
-                        .WithMany("teacherSkills")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
-                        .WithMany("teacherSkills")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Skill");
-
-                    b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("EduHome.Core.Entities.TeacherSocial", b =>
-                {
-                    b.HasOne("EduHome.Core.Entities.Social", "Social")
-                        .WithMany("teacherSocials")
-                        .HasForeignKey("SocialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
-                        .WithMany("teacherSocials")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Social");
 
                     b.Navigation("Teacher");
                 });
@@ -809,16 +739,6 @@ namespace EduHome.App.Migrations
                     b.Navigation("Teachers");
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.Skill", b =>
-                {
-                    b.Navigation("teacherSkills");
-                });
-
-            modelBuilder.Entity("EduHome.Core.Entities.Social", b =>
-                {
-                    b.Navigation("teacherSocials");
-                });
-
             modelBuilder.Entity("EduHome.Core.Entities.Tag", b =>
                 {
                     b.Navigation("courseTags");
@@ -826,11 +746,11 @@ namespace EduHome.App.Migrations
 
             modelBuilder.Entity("EduHome.Core.Entities.Teacher", b =>
                 {
+                    b.Navigation("Skills");
+
+                    b.Navigation("Socials");
+
                     b.Navigation("teacherHobbies");
-
-                    b.Navigation("teacherSkills");
-
-                    b.Navigation("teacherSocials");
                 });
 #pragma warning restore 612, 618
         }

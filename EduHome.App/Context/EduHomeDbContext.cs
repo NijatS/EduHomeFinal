@@ -12,15 +12,13 @@ namespace EduHome.App.Context
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Degree> Degrees { get; set; }
         public DbSet<Hobby> Hobbies { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+		public DbSet<Course> Courses { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Social> Socials { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<TeacherHobby> TeacherHobbies { get; set; }
-        public DbSet<TeacherSkill> TeacherSkills { get; set; }
-        public DbSet<TeacherSocial> TeacherSocials { get; set; }
-		public DbSet<Course> Courses { get; set; }
-        public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<TeacherHobby> TeacherHobbies { get; set; }
 		public DbSet<CourseAssests> CourseAssests { get; set; }
 		public DbSet<CourseCategory> CourseCategories { get; set; }
 		public DbSet<CourseLanguage> CourseLanguages { get; set; }

@@ -22,20 +22,30 @@ namespace EduHome.App.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Skill> Skills = await _context.Skills.Where(x => !x.IsDeleted)
+                .Include(x=>x.Teacher)
                  .ToListAsync();
             return View(Skills);
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+                  ToListAsync();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Skill Skill)
         {
-            if (!ModelState.IsValid)
+			ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+			ToListAsync();
+			if (!ModelState.IsValid)
             {
+                return View(Skill);
+            }
+            if (Skill.TeacherId == 0)
+            {
+                ModelState.AddModelError("","Teacher must be selected");
                 return View(Skill);
             }
             Skill.CreatedDate = DateTime.Now;
@@ -46,6 +56,8 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
+            ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+       ToListAsync();
             Skill? Skill = await _context.Skills.Where(x => x.Id == id && !x.IsDeleted)
              .FirstOrDefaultAsync();
             if (Skill is null)
@@ -58,13 +70,20 @@ namespace EduHome.App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id,Skill Skill)
         {
+            ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+       ToListAsync();
             Skill? updatedSkill = await _context.Skills.Where(x => x.Id == id && !x.IsDeleted)
                   .FirstOrDefaultAsync();
             if(Skill is null)
             {
                 return View(Skill);
             }
-            if (!ModelState.IsValid)
+			if (Skill.TeacherId == 0)
+			{
+				ModelState.AddModelError("", "Teacher must be selected");
+				return View(Skill);
+			}
+			if (!ModelState.IsValid)
             {
                 return View(updatedSkill);
             }

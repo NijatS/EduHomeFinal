@@ -22,23 +22,33 @@ namespace EduHome.App.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Social> Socials = await _context.Socials.Where(x => !x.IsDeleted)
+                .Include(x=>x.Teacher)
                  .ToListAsync();
             return View(Socials);
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            return View();
+			ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+	  ToListAsync();
+			return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Social Social)
         {
-            if (!ModelState.IsValid)
+			ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+	  ToListAsync();
+			if (!ModelState.IsValid)
             {
                 return View(Social);
             }
-            Social.CreatedDate = DateTime.Now;
+			if (Social.TeacherId == 0)
+			{
+				ModelState.AddModelError("", "Teacher must be selected");
+				return View(Social);
+			}
+			Social.CreatedDate = DateTime.Now;
             await _context.AddAsync(Social);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -46,7 +56,9 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            Social? Social = await _context.Socials.Where(x => x.Id == id && !x.IsDeleted)
+			ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+	  ToListAsync();
+			Social? Social = await _context.Socials.Where(x => x.Id == id && !x.IsDeleted)
              .FirstOrDefaultAsync();
             if (Social is null)
             {
@@ -58,13 +70,20 @@ namespace EduHome.App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id,Social Social)
         {
-            Social? updatedSocial = await _context.Socials.Where(x => x.Id == id && !x.IsDeleted)
+			ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
+	  ToListAsync();
+			Social? updatedSocial = await _context.Socials.Where(x => x.Id == id && !x.IsDeleted)
                   .FirstOrDefaultAsync();
             if(Social is null)
             {
                 return View(Social);
             }
-            if (!ModelState.IsValid)
+			if (Social.TeacherId == 0)
+			{
+				ModelState.AddModelError("", "Teacher must be selected");
+				return View(Social);
+			}
+			if (!ModelState.IsValid)
             {
                 return View(updatedSocial);
             }

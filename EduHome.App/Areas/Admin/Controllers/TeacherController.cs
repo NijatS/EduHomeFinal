@@ -31,17 +31,24 @@ namespace EduHome.App.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Positions = await _context.Positions.Where(p => !p.IsDeleted).ToListAsync();
-            ViewBag.Skills = await _context.Skills.Where(p => !p.IsDeleted).ToListAsync();
-            return View();
+            ViewBag.Degrees = await _context.Degrees.Where(p => !p.IsDeleted).ToListAsync();
+			ViewBag.Hobbies = await _context.Hobbies.Where(p => !p.IsDeleted).ToListAsync();
+			return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Teacher teacher)
         {
-            ViewBag.Positions = await _context.Positions.Where(p => !p.IsDeleted).ToListAsync();
-            ViewBag.Skills = await _context.Skills.Where(p => !p.IsDeleted).ToListAsync();
-            if (!ModelState.IsValid)
+			ViewBag.Positions = await _context.Positions.Where(p => !p.IsDeleted).ToListAsync();
+			ViewBag.Degrees = await _context.Degrees.Where(p => !p.IsDeleted).ToListAsync();
+			ViewBag.Hobbies = await _context.Hobbies.Where(p => !p.IsDeleted).ToListAsync();
+			if (!ModelState.IsValid)
             {
+                return View(teacher);
+            }
+            if(teacher.DegreeId == 0 || teacher.PositionId == 0)
+            {
+                ModelState.AddModelError("","Every column must be fulled");
                 return View(teacher);
             }
             if(teacher.file is null)
@@ -59,7 +66,22 @@ namespace EduHome.App.Areas.Admin.Controllers
                 ModelState.AddModelError("file", "Size of Image must less than 1 mb!!!");
                 return View(teacher);
             }
-            teacher.Image = teacher.file.CreateImage(_environment.WebRootPath, "img/teacher/");
+			foreach (var item in teacher.HobbyIds)
+			{
+				if (!await _context.Hobbies.AnyAsync(x => x.Id == item))
+				{
+					ModelState.AddModelError("", "Invalid Hobby Id");
+					return View(teacher);
+				}
+				TeacherHobby teacherHobby = new TeacherHobby
+				{
+					CreatedDate = DateTime.Now,
+					Teacher = teacher,
+					HobbyId = item
+				};
+				await _context.TeacherHobbies.AddAsync(teacherHobby);
+			}
+			teacher.Image = teacher.file.CreateImage(_environment.WebRootPath, "img/teacher/");
             teacher.CreatedDate = DateTime.Now;
             await _context.AddAsync(teacher);
             await _context.SaveChangesAsync();
@@ -68,60 +90,77 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            Slider? slider = await _context.Sliders.Where(x => x.Id == id && !x.IsDeleted)
+			ViewBag.Positions = await _context.Positions.Where(p => !p.IsDeleted).ToListAsync();
+			ViewBag.Degrees = await _context.Degrees.Where(p => !p.IsDeleted).ToListAsync();
+			ViewBag.Hobbies = await _context.Hobbies.Where(p => !p.IsDeleted).ToListAsync();
+			Teacher? teacher = await _context.Teachers.Where(x => x.Id == id && !x.IsDeleted)
+                .Include(x=>x.teacherHobbies)
+                   .ThenInclude(x=>x.Hobby)
+                   .Include(x=>x.Position)
+                   .Include(x=>x.Degree)
              .FirstOrDefaultAsync();
-            if (slider is null)
+            if (teacher is null)
             {
                 return NotFound();
             }
-            return View(slider);
+            return View(teacher);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id,Slider slider)
+        public async Task<IActionResult> Update(int id,Teacher teacher)
         {
-            Slider? updatedSlider = await _context.Sliders.Where(x => x.Id == id && !x.IsDeleted)
-                  .FirstOrDefaultAsync();
-            if(slider is null)
+			ViewBag.Positions = await _context.Positions.Where(p => !p.IsDeleted).ToListAsync();
+			ViewBag.Degrees = await _context.Degrees.Where(p => !p.IsDeleted).ToListAsync();
+			ViewBag.Hobbies = await _context.Hobbies.Where(p => !p.IsDeleted).ToListAsync();
+			Teacher? updatedTeacher = await _context.Teachers.Where(x => x.Id == id && !x.IsDeleted)
+                .AsNoTracking()
+			.Include(x => x.teacherHobbies)
+			   .ThenInclude(x => x.Hobby)
+			   .Include(x => x.Position)
+			   .Include(x => x.Degree)
+		 .FirstOrDefaultAsync();
+			if (teacher is null)
             {
-                return View(slider);
+                return View(teacher);
             }
             if (!ModelState.IsValid)
             {
-                return View(updatedSlider);
+                return View(updatedTeacher);
             }
 
-            if(slider.file is not null)
+            if(teacher.file is not null)
             {
-                if (!Helper.isImage(slider.file))
+                if (!Helper.isImage(teacher.file))
                 {
                     ModelState.AddModelError("file", "File must be image");
-                    return View(slider);
+                    return View(teacher);
                 }
-                if (!Helper.isSizeOk(slider.file, 1))
+                if (!Helper.isSizeOk(teacher.file, 1))
                 {
                     ModelState.AddModelError("file", "Size of Image must less than 1 mb!!!");
-                    return View(slider);
+                    return View(teacher);
                 }
-                Helper.RemoveImage(_environment.WebRootPath, "img/slider/", updatedSlider.Image);
-                updatedSlider.Image = slider.file.CreateImage(_environment.WebRootPath, "img/slider/");
-            }
-            updatedSlider.Title = slider.Title;
-            updatedSlider.Text = slider.Text;
-            updatedSlider.Link = slider.Link;
-            updatedSlider.UpdatedDate = DateTime.Now;
+				Helper.RemoveImage(_environment.WebRootPath, "img/teacher/", updatedTeacher.Image);
+				teacher.Image = teacher.file.CreateImage(_environment.WebRootPath, "img/teacher/");
+			}
+			else
+			{
+				teacher.Image = updatedTeacher.Image;
+			}
+            teacher.UpdatedDate = DateTime.Now;
+            _context.Update(teacher);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Remove(int id)
         {
-            Slider? slider = await _context.Sliders.Where(x=>x.Id ==id && !x.IsDeleted)
+            Teacher? teacher = await _context.Teachers.Where(x=>x.Id ==id && !x.IsDeleted)
                 .FirstOrDefaultAsync();
-            if(slider is null)
+            if(teacher is null)
             {
                 return NotFound();
             }
-            slider.IsDeleted = true;
+            teacher.IsDeleted = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

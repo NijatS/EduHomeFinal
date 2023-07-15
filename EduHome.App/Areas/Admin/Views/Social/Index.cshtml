@@ -4,7 +4,8 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Text:</th>
+                <th scope="col">Teacher:</th>
+                <th scope="col">Name:</th>
                 <th scope="col">Date:</th>
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
@@ -15,6 +16,7 @@
             {
                     <tr>
                         <th scope="row">@item.Id</th>
+                    <th scope="row">@item.Teacher.Name</th>
                         <th>@item.Name</th>
                     <th>@item.CreatedDate.Day/@item.CreatedDate.Month/@item.CreatedDate.Year</th>
                         <td><a asp-controller="social" asp-action="update" asp-route-id="@item.Id" >

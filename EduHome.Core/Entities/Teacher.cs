@@ -14,7 +14,19 @@ namespace EduHome.Core.Entities
     {
         [Required]
         public string Name { get; set; }
+        [Required] 
+        public string AboutText { get; set; }
+        [Required] 
+        public string Study { get; set; }
         [Required]
+        public string Faculty { get; set; }
+		[Required]
+		public string Mail { get; set; }
+        [Required]
+        public string Number { get; set; }
+        [Required]
+        public string Skype { get; set; }
+		[Required]
         public int ExperienceYear { get; set; }
         [Required]
         public int DegreeId { get; set; }
@@ -22,11 +34,13 @@ namespace EduHome.Core.Entities
         public int PositionId { get; set; }
         public string? Image { get ; set; }
         [NotMapped]
-        public IFormFile file { get; set; } 
+        public IFormFile? file { get; set; } 
         public Degree? Degree { get; set; }
         public Position? Position { get; set; } 
         public List<Skill>? Skills { get; set; }
         public List<Social>? Socials { get; set; }
         public List<TeacherHobby>? teacherHobbies { get; set; }
-    }
+		[NotMapped]
+		public List<int> HobbyIds { get; set; }
+	}
 }

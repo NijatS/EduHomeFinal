@@ -159,9 +159,13 @@ namespace EduHome.App.Areas.Admin.Controllers
                     ModelState.AddModelError("file", "Size of Image must less than 1 mb!!!");
                     return View(course);
                 }
-                Helper.RemoveImage(_environment.WebRootPath, "img/slider/", updatedCourse.Image);
-                updatedCourse.Image = course.file.CreateImage(_environment.WebRootPath, "img/slider/");
+                Helper.RemoveImage(_environment.WebRootPath, "img/course/", updatedCourse.Image);
+                course.Image = course.file.CreateImage(_environment.WebRootPath, "img/course/");
             }
+            else
+            {
+                course.Image = updatedCourse.Image;
+			}
             List<CourseCategory> RemoveableCategory = await _context.CourseCategories.
                Where(x => !course.CategoryIds.Contains(x.CategoryId)).ToListAsync();
 
@@ -192,21 +196,22 @@ namespace EduHome.App.Areas.Admin.Controllers
                     TagId = item
                 });
             }
-            updatedCourse.CourseFee = course.CourseFee;
-            updatedCourse.Name = course.Name;
-            updatedCourse.Apply = course.Apply;
-            updatedCourse.Description = course.Description;
-            updatedCourse.AboutText = course.AboutText;
-            updatedCourse.Certificiation = course.Certificiation;
-            updatedCourse.ClassDuration = course.ClassDuration;
-            updatedCourse.StartDate = course.StartDate;
-            updatedCourse.StudentCount = course.StudentCount;
-            updatedCourse.SkillLevel = course.SkillLevel;
-            updatedCourse.EndDate = course.EndDate;
+            //updatedCourse.CourseFee = course.CourseFee;
+            //updatedCourse.Name = course.Name;
+            //updatedCourse.Apply = course.Apply;
+            //updatedCourse.Description = course.Description;
+            //updatedCourse.AboutText = course.AboutText;
+            //updatedCourse.Certificiation = course.Certificiation;
+            //updatedCourse.ClassDuration = course.ClassDuration;
+            //updatedCourse.StartDate = course.StartDate;
+            //updatedCourse.StudentCount = course.StudentCount;
+            //updatedCourse.SkillLevel = course.SkillLevel;
+            //updatedCourse.EndDate = course.EndDate;
             updatedCourse.UpdatedDate = DateTime.Now;
             updatedCourse.CourseLanguageId = course.CourseLanguageId;
-            updatedCourse.CourseLanguage = course.CourseLanguage;
+            //updatedCourse.CourseLanguage = course.CourseLanguage;
 			updatedCourse.CourseAssestsId = course.CourseAssestsId;
+            _context.Courses.Update(course);
 			await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

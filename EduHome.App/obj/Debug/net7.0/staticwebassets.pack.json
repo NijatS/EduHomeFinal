@@ -653,8 +653,16 @@
       "PackagePath": "staticwebassets\\img\\contact\\contact3.png"
     },
     {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\07061f9a-160e-4953-95f8-9154de8e636fdownload.jpg",
+      "PackagePath": "staticwebassets\\img\\course\\07061f9a-160e-4953-95f8-9154de8e636fdownload.jpg"
+    },
+    {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\496dab84-afce-443b-b556-226c01302590download (1).jpg",
       "PackagePath": "staticwebassets\\img\\course\\496dab84-afce-443b-b556-226c01302590download (1).jpg"
+    },
+    {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\79a7ae35-7f3a-461b-8eed-f5f99898c232download (1).jpg",
+      "PackagePath": "staticwebassets\\img\\course\\79a7ae35-7f3a-461b-8eed-f5f99898c232download (1).jpg"
     },
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\course-bg.jpg",
@@ -817,12 +825,20 @@
       "PackagePath": "staticwebassets\\img\\slider\\1fc80c7e-50d3-4356-8ae7-d6eacd72af18images (1).jpg"
     },
     {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\3af4feee-db8a-4e86-89ba-4fde7dd7ad2bdownload (1).jpg",
+      "PackagePath": "staticwebassets\\img\\slider\\3af4feee-db8a-4e86-89ba-4fde7dd7ad2bdownload (1).jpg"
+    },
+    {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\512c0d69-4e48-486a-ba5a-70602b759286download (1).jpg",
       "PackagePath": "staticwebassets\\img\\slider\\512c0d69-4e48-486a-ba5a-70602b759286download (1).jpg"
     },
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\6d17687b-b401-4cb7-849a-b2121fcd7683images (2).jpg",
       "PackagePath": "staticwebassets\\img\\slider\\6d17687b-b401-4cb7-849a-b2121fcd7683images (2).jpg"
+    },
+    {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\d6a97850-beac-455c-9592-0359f89fcbe7download (1).jpg",
+      "PackagePath": "staticwebassets\\img\\slider\\d6a97850-beac-455c-9592-0359f89fcbe7download (1).jpg"
     },
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\home.png",
@@ -839,6 +855,10 @@
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\slider3.jpg",
       "PackagePath": "staticwebassets\\img\\slider\\slider3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\teacher\\b29ca04c-f4c2-4546-ac25-a153066a0ba1photo.jpg",
+      "PackagePath": "staticwebassets\\img\\teacher\\b29ca04c-f4c2-4546-ac25-a153066a0ba1photo.jpg"
     },
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\teacher\\teacher-details.jpg",

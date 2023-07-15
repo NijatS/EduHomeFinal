@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Cuk+5hFUU2GDfzw+7N8c/dIzyRo5Bo0mJGRKgVw70rg=",
+  "Hash": "TOIg7Z7F63YEYfxI3X4H/5SEsmYnwgIyi2XCDd2ywzM=",
   "Source": "EduHome.App",
   "BasePath": "_content/EduHome.App",
   "Mode": "Default",
@@ -3519,6 +3519,23 @@
       "OriginalItemSpec": "wwwroot\\img\\slider\\1fc80c7e-50d3-4356-8ae7-d6eacd72af18images (1).jpg"
     },
     {
+      "Identity": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\31ac3b90-3256-4368-a48b-5856398d11cedownload.jpg",
+      "SourceId": "EduHome.App",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\",
+      "BasePath": "_content/EduHome.App",
+      "RelativePath": "img/slider/31ac3b90-3256-4368-a48b-5856398d11cedownload.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\slider\\31ac3b90-3256-4368-a48b-5856398d11cedownload.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\3af4feee-db8a-4e86-89ba-4fde7dd7ad2bdownload (1).jpg",
       "SourceId": "EduHome.App",
       "SourceType": "Discovered",
@@ -3551,6 +3568,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\slider\\512c0d69-4e48-486a-ba5a-70602b759286download (1).jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\69f87e96-b705-4aa6-a1be-fc7907afd404download (1).jpg",
+      "SourceId": "EduHome.App",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\",
+      "BasePath": "_content/EduHome.App",
+      "RelativePath": "img/slider/69f87e96-b705-4aa6-a1be-fc7907afd404download (1).jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\slider\\69f87e96-b705-4aa6-a1be-fc7907afd404download (1).jpg"
     },
     {
       "Identity": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\slider\\6d17687b-b401-4cb7-849a-b2121fcd7683images (2).jpg",

@@ -1,12 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EduHome.App.Context;
+using EduHome.App.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduHome.App.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly EduHomeDbContext _context;
+
+        public HomeController(EduHomeDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            HomeVM homeVM = new HomeVM()
+            {
+                Sliders = _context.Sliders.Where(x => !x.IsDeleted).ToList()
+            };
+            return View(homeVM);
         }
     }
 }

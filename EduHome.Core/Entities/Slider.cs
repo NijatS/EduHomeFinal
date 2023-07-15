@@ -20,6 +20,8 @@ namespace EduHome.Core.Entities
         public string Link { get; set; }
         [NotMapped]
         public IFormFile? file { get; set; }
+        public bool isActive { get; set; }
+
 
     }
 }

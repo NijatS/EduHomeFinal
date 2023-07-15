@@ -5,32 +5,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduHome.App.Controllers
 {
-    public class HomeController : Controller
+    public class AboutController : Controller
     {
         private readonly EduHomeDbContext _context;
 
-        public HomeController(EduHomeDbContext context)
+        public AboutController(EduHomeDbContext context)
         {
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
-            HomeVM homeVM = new HomeVM()
+            AboutVM aboutVM = new AboutVM()
             {
-                Sliders = _context.Sliders.Where(x => !x.IsDeleted).ToList(),
                 Notices = _context.Notices.Where(x => !x.IsDeleted).ToList(),
                 Teachers = _context.Teachers.Where(x => !x.IsDeleted)
-                .Include(x => x.Position)
-                  .Include(x => x.Degree)
-                 .Include(x => x.Socials).Take(3)
+                .Include(x=>x.Position)
+                  .Include(x=>x.Degree)
+                 .Include(x=>x.Socials)
                 .ToList(),
-                Courses = _context.Courses.Where(x => !x.IsDeleted)
-                 .ToList(),
                 Service = _context.Services.Where(x => !x.IsDeleted)
                    .FirstOrDefault(),
             };
-            return View(homeVM);
+            return View(aboutVM);
         }
     }
 }

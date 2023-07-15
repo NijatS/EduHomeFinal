@@ -25,4 +25,8 @@
     <ProjectReference Include="..\EduHome.Core\EduHome.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
 </Project>

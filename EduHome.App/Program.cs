@@ -3,10 +3,10 @@ using EduHome.App.ServiceRegistrations;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 builder.Services.Register(builder.Configuration);
+builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();

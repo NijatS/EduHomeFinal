@@ -33,25 +33,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach(var item in Model){
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-course mb-70">
-                    <div class="course-img">
-                        <a asp-action="detail" asp-controller="course" asp-route-id="@item.Id">
-                            <img src="~/img/course/@item.Image" alt="course">
-                            <div class="course-hover">
-                                <i class="fa fa-link"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="course-content">
-                            <h3><a asp-action="detail" asp-controller="course" asp-route-id="@item.Id">@item.Name</a></h3>
-                            <p>@item.AboutText</p>
-                            <a class="default-btn" asp-action="detail" asp-controller="course" asp-route-id="@item.Id">read more</a>
-                    </div>
-                </div>
-            </div>
-            }
+            @await Html.PartialAsync("_Course",Model)
         </div>
     </div>
 </div>

@@ -1,4 +1,8 @@
-﻿<!doctype html>
+﻿@inject EduHome.App.Services.Implementations.SettingService settingService
+@{
+    Service Service = await settingService.GetSetting();
+}
+<!doctype html>
 <html class="no-js" lang="en">
 
 <!-- Mirrored from demo.devitems.com/eduhome/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 Jun 2020 19:37:50 GMT -->
@@ -56,7 +60,7 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="logo">
-                            <a href="index.html"><img src="img/logo/logo2.png" alt="eduhome" /></a>
+                            <a asp-action="index" asp-controller="home"><img src="~/img/logo/@Service.HeaderLogo" alt="eduhome" /></a>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-6">
@@ -66,21 +70,21 @@
                                 <nav>
                                     <ul>
                                         <li>
-                                            <a href="index.html">Home</a>
+                                            <a asp-action="index" asp-controller="home">Home</a>
                                             <ul>
-                                                <li><a href="index.html">Home One</a></li>
+                                                <li><a href="index.html">Home</a></li>
                                                 <li><a href="index-2.html">Home Two</a></li>
                                                 <li><a href="index-3.html">Home Three</a></li>
                                                 <li><a href="index-4.html">Home Four</a></li>
                                                 <li><a href="index-5.html">Home Five</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="about.html">About</a></li>
+                                        <li><a asp-action="index" asp-controller="about">About</a></li>
                                         <li>
-                                            <a href="course.html">courses</a>
+                                            <a asp-action="index" asp-controller="course">courses</a>
                                             <ul>
-                                                <li><a href="course.html">courses</a></li>
-                                                <li><a href="course-details.html">courses details</a></li>
+                                                <li><a asp-action="index" asp-controller="course">courses</a></li>
+                                                <li><a asp-action="index" asp-controller="course" asp-route-id="1">courses details</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -95,8 +99,8 @@
                                         <li class="hidden-sm">
                                             <a href="teacher.html">teacher</a>
                                             <ul>
-                                                <li><a href="teacher.html">teacher</a></li>
-                                                <li><a href="teacher-details.html">teacher details</a></li>
+                                                <li><a asp-action="index" asp-controller="teacher">teacher</a></li>
+                                                <li><a asp-action="index" asp-controller="course" asp-route-id="1">teacher details</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -182,7 +186,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="single-widget pr-60">
                             <div class="footer-logo pb-25">
-                                <a href="index.html"><img src="img/logo/footer-logo.png" alt="eduhome"></a>
+                                <a asp-action="index" asp-controller="home"><img src="~/img/logo/footer-logo.png" alt="eduhome"></a>
                             </div>
                             <p>I must explain to you how all this mistaken idea of denoung pleure and praising pain was born and give you a coete account of the system. </p>
                             <div class="footer-social">
@@ -222,9 +226,9 @@
                     <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="single-widget">
                             <h3>get in touch</h3>
-                            <p>Your address goes here, Street<br>City, Roadno 785 New York</p>
-                            <p>+880  548  986  898  87<br>+880  659  785  658  98</p>
-                            <p>info@eduhome.com<br>www.eduhome.com</p>
+                            <p>Your address goes here, Street<br>@Service.Address</p>
+                            <p>@Service.Number1<br>@Service.Number2</p>
+                            <p>@Service.Email<br>www.eduhome.com</p>
                         </div>
                     </div>
                 </div>
@@ -234,7 +238,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <p>Copyright © <a href="#" target="_blank">HasTech</a> 2017. All Right Reserved By Hastech.</p>
+                        <p>Copyright © <a href="#" target="_blank">HasTech</a> 2023. All Right Reserved By Nijat.</p>
                     </div>
                 </div>
             </div>

@@ -97,12 +97,18 @@ namespace EduHome.App.Areas.Admin.Controllers
                     ModelState.AddModelError("file", "Size of Image must less than 1 mb!!!");
                     return View(service);
                 }
-                Helper.RemoveImage(_environment.WebRootPath, "img/slider/",updatedService.AboutImage);
-                updatedService.AboutImage = service.file.CreateImage(_environment.WebRootPath, "img/slider/");
+                Helper.RemoveImage(_environment.WebRootPath, "img/about/",updatedService.AboutImage);
+                updatedService.AboutImage = service.file.CreateImage(_environment.WebRootPath, "img/about/");
             }
             updatedService.AboutText = service.AboutText;
             updatedService.AboutTitle = service.AboutTitle;
             updatedService.VideoLink = service.VideoLink;
+            updatedService.Address = service.Address;
+            updatedService.Number1 = service.Number1;
+            updatedService.Number2 = service.Number2;
+            updatedService.Email = service.Email;
+            updatedService.FooterLogo = service.FooterLogo;
+            updatedService.HeaderLogo = service.HeaderLogo;
             updatedService.UpdatedDate = DateTime.Now;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

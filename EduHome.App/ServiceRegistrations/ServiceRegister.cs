@@ -1,4 +1,5 @@
 ﻿using EduHome.App.Context;
+using EduHome.App.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduHome.App.ServiceRegistrations
@@ -11,6 +12,7 @@ namespace EduHome.App.ServiceRegistrations
             {
                 opt.UseSqlServer(configuration.GetConnectionString("Default"));
             });
+            services.AddScoped<SettingService>();
         }
     }
 }

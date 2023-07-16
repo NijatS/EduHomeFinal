@@ -977,6 +977,10 @@
       "PackagePath": "staticwebassets\\js\\vendor\\modernizr-2.8.3.min.js"
     },
     {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\templates\\email.html",
+      "PackagePath": "staticwebassets\\templates\\email.html"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.EduHome.App.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

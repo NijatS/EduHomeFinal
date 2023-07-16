@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduHome.App.Context
 {
-    public class EduHomeDbContext : DbContext
+    public class EduHomeDbContext : IdentityDbContext<AppUser>
     {
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Service> Services { get; set; }
@@ -23,8 +23,9 @@ namespace EduHome.App.Context
 		public DbSet<CourseCategory> CourseCategories { get; set; }
 		public DbSet<CourseLanguage> CourseLanguages { get; set; }
 		public DbSet<CourseTag> CourseTags { get; set; }
-		public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options)
+        public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options)
         {
+
         }
     }
 }

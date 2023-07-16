@@ -2565,6 +2565,8 @@
       "EduHome.Core/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "5.0.17",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore": "7.0.9",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.8"
         },
         "runtime": {

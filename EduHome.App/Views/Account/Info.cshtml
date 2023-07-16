@@ -1,4 +1,4 @@
-﻿  @model RegisterVM    
+﻿  @model AppUser;
   <!-- Banner Area Start -->
 <div class="banner-area-wrapper">
     <div class="banner-area text-center">
@@ -7,7 +7,7 @@
                 <div class="col-xs-12">
                     <div class="banner-content-wrapper">
                         <div class="banner-content">
-                            <h2>sign up</h2>
+                            <h2>info</h2>
                         </div>
                     </div>
                 </div>
@@ -24,54 +24,38 @@
                 <div class="login">
                     <div class="login-form-container">
                         <div class="login-text">
-                            <h2>sign up</h2>
-                            <span>Please login using account detail bellow.</span>
+                            <h2>info</h2>
                         </div>
                         <div class="login-form">
                             <form  method="post">
                                 <div class="text text-danger" asp-validation-summary="ModelOnly"></div>
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <div class="form-outline flex-fill mb-0">
-                                        <input type="text" placeholder="Name"  asp-for="Name" class="form-control" />
+                                        <label class="form-label" asp-for="Name"></label>
+                                        <input disabled type="text" placeholder="Name"  asp-for="Name" class="form-control" />
                                         <span class="text text-danger" asp-validation-for="Name"></span>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <div class="form-outline flex-fill mb-0">
-                                        <input type="text" placeholder="Surname" asp-for="Surname" class="form-control" />
+                                        <label class="form-label" asp-for="Surname"></label>
+                                        <input disabled type="text" placeholder="Surname" asp-for="Surname" class="form-control" />
                                         <span class="text text-danger" asp-validation-for="Surname"></span>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <div class="form-outline flex-fill mb-0">
-                                        <input type="email" placeholder="Email" asp-for="Email" class="form-control" />
+                                        <label class="form-label" asp-for="Email"></label>
+                                        <input disabled type="email" placeholder="Email" asp-for="Email" class="form-control" />
                                         <span class="text text-danger" asp-validation-for="Email"></span>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <div class="form-outline flex-fill mb-0">
-                                        <input placeholder="UserName" asp-for="UserName" class="form-control" />
+                                        <label class="form-label" asp-for="UserName"></label>
+                                        <input disabled placeholder="UserName" asp-for="UserName" class="form-control" />
                                         <span class="text text-danger" asp-validation-for="UserName"></span>
                                     </div>
-                                </div>
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <div class="form-outline flex-fill mb-0">
-                                        <input type="password" placeholder="Password" asp-for="Password" class="form-control" />
-                                        <span class="text text-danger" asp-validation-for="Password"></span>
-                                    </div>
-                                </div>     <div class="d-flex flex-row align-items-center mb-4">
-                                    <div class="form-outline flex-fill mb-0">
-                                        <input type="password" placeholder="Confirm Password" asp-for="ConfirmPassword" class="form-control" />
-                                        <span class="text text-danger" asp-validation-for="ConfirmPassword"></span>
-                                    </div>
-                                </div>
-                                <div class="button-box">
-                                    <div class="login-toggle-btn">
-                                        <input type="checkbox" id="remember">
-                                        <label for="remember">Remember me</label>
-                                        <a href="#">Forgot Password?</a>
-                                    </div>
-                                    <button type="submit" class="default-btn">sign up</button>
                                 </div>
                             </form>
                         </div>

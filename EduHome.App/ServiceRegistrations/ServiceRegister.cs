@@ -20,6 +20,17 @@ namespace EduHome.App.ServiceRegistrations
             services.AddIdentity<AppUser, IdentityRole>()
                     .AddDefaultTokenProviders()
                            .AddEntityFrameworkStores<EduHomeDbContext>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.AllowedForNewUsers = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireDigit = true;
+                options.SignIn.RequireConfirmedEmail = true;
+                options.User.RequireUniqueEmail = true;
+            });
         }
     }
 }

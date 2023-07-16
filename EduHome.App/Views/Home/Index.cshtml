@@ -1,5 +1,11 @@
 ﻿@model HomeVM
 <section id="slider-container" class="slider-area two">
+    @if (!string.IsNullOrWhiteSpace((string)TempData["Register"]))
+    {
+        <div style="display:none;" id="verifyEmail">
+            @TempData["Register"]
+        </div>
+    }
     <div class="slider-owl owl-theme owl-carousel">
         @foreach (var item in Model.Sliders)
         {
@@ -277,3 +283,21 @@
 </div>
 <!-- Blog Area End -->
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const verifyEmail = document.querySelector("#verifyEmail");
+    if(verifyEmail != undefined){
+         const message = verifyEmail.innerHTML;
+         if(message != ""){
+            Swal.fire({
+                title: `${message}`,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+         }
+    }
+</script>

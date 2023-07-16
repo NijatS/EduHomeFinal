@@ -15,7 +15,7 @@ namespace EduHome.App.Services.Implementations
         public async Task SendMail(string from, string to, string subject, string text, string link, string name)
         {
             string body = string.Empty;
-            string path = Path.Combine(_env.WebRootPath, "assets", "templates", "email.html");
+            string path = Path.Combine(_env.WebRootPath, "templates", "email.html");
             using (StreamReader SourceReader = System.IO.File.OpenText(path))
             {
                 body = SourceReader.ReadToEnd();

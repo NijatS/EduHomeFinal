@@ -1,4 +1,5 @@
-﻿        <!-- Banner Area Start -->
+﻿@model LoginVM
+        <!-- Banner Area Start -->
 <div class="banner-area-wrapper">
     <div class="banner-area text-center">
         <div class="container">
@@ -28,8 +29,18 @@
                         </div>
                         <div class="login-form">
                             <form action="#" method="post">
-                                <input type="text" name="user-name" placeholder="Username">
-                                <input type="password" name="user-password" placeholder="Password">
+                                <div class="d-flex flex-row align-items-center mb-4">
+                                    <div class="form-outline flex-fill mb-0">
+                                        <input  type="text" placeholder="UserName" asp-for="UserName" class="form-control" />
+                                        <span class="text text-danger" asp-validation-for="UserName"></span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center mb-4">
+                                    <div class="form-outline flex-fill mb-0">
+                                        <input  type="text" placeholder="Password" asp-for="Password" class="form-control" />
+                                        <span class="text text-danger" asp-validation-for="Password"></span>
+                                    </div>
+                                </div>
                                 <div class="button-box">
                                     <div class="login-toggle-btn">
                                         <input type="checkbox" id="remember">

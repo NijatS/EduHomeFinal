@@ -121,6 +121,75 @@ namespace EduHome.App.Controllers
             }
             return RedirectToAction("index","home");
         }
+        [Authorize]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("index","home");
+        }
+        public async Task<IActionResult> ForgetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(string mail)
+        {
+            if(mail is null)
+            {
+                ModelState.AddModelError("", "Please enter email");
+                    return View();
+            }
+            var user = await _userManager.FindByEmailAsync(mail);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
+            string? link = Url.Action(action: "ResetPassword", controller: "Account", values: new
+            {
+                token = token,
+                mail = mail
+            }, protocol: Request.Scheme);
+
+            await _mailService.SendMail("nicatsoltanli03@gmail.com", user.Email,
+            "Reset Password", "Click me for reseting password", link, user.Name + " " + user.Surname);
+            return RedirectToAction("index", "home");
+        }
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(string mail,string token)
+        {
+            var user = await _userManager.FindByEmailAsync(mail);
+            if(user is null)
+            {
+                return NotFound();
+            }
+            ResetPasswordVM resetPasswordVM = new ResetPasswordVM()
+            {
+                Mail = mail,
+                Token = token
+            };
+            return View(resetPasswordVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPasswordVM)
+        {
+            var user = await _userManager.FindByEmailAsync(resetPasswordVM.Mail);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            var result =  await _userManager.
+                ResetPasswordAsync(user, resetPasswordVM.Token,resetPasswordVM.Password);
+            if (!result.Succeeded)
+            {
+                foreach(var error in  result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(resetPasswordVM);
+            }
+            return RedirectToAction("login", "account");
+        }
     }
 }

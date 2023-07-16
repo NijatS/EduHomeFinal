@@ -191,5 +191,67 @@ namespace EduHome.App.Controllers
             }
             return RedirectToAction("login", "account");
         }
+
+        [Authorize]
+        public async Task<IActionResult> Update()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            UpdatedUserVM updatedUserVM = new UpdatedUserVM()
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Name = user.Name,
+                Surname = user.Surname,
+            };
+            return View(updatedUserVM);
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Update(UpdatedUserVM model)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (user is null)
+            {
+                return NotFound();
+            }
+            user.Name = model.Name;
+            user.Email = model.Email;
+            user.Surname = model.Surname;
+            user.UserName = model.UserName;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+                return View(model);
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Password))
+            {
+                result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.Password);
+                if (!result.Succeeded)
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+                    }
+                    return View(model);
+                }
+
+            }
+            await _signInManager.SignInAsync(user, true);
+
+            return RedirectToAction(nameof(Info));
+        }
     }
 }

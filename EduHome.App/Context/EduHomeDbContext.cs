@@ -25,6 +25,9 @@ namespace EduHome.App.Context
 		public DbSet<CourseTag> CourseTags { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<Subscribe> Subscribes { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogTag> BlogTags { get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
         public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options)
         {
 

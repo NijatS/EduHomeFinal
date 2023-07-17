@@ -1,5 +1,6 @@
 ﻿using EduHome.App.Context;
 using EduHome.App.ViewModels;
+using EduHome.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,21 @@ namespace EduHome.App.Controllers
                    .FirstOrDefault(),
             };
             return View(homeVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostSubscribe(Subscribe subscribe)
+        {
+            if (subscribe == null)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Invalid Email");
+            }
+            await _context.AddAsync(subscribe);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

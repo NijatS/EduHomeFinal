@@ -1,4 +1,6 @@
-﻿namespace EduHome.App.Services.Interfaces
+﻿using EduHome.Core.Entities;
+
+namespace EduHome.App.Services.Interfaces
 {
     public interface IEmailService
     {

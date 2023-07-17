@@ -23,6 +23,8 @@ namespace EduHome.App.Context
 		public DbSet<CourseCategory> CourseCategories { get; set; }
 		public DbSet<CourseLanguage> CourseLanguages { get; set; }
 		public DbSet<CourseTag> CourseTags { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<Subscribe> Subscribes { get; set; }
         public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options)
         {
 

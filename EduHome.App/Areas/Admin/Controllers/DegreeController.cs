@@ -1,13 +1,16 @@
 ﻿using EduHome.App.Context;
 using EduHome.App.Extensions;
 using EduHome.Core.Entities;
-using Fir.App.Helpers;
+using EduHome.App.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
+
     public class DegreeController : Controller
     {
         private readonly EduHomeDbContext _context;

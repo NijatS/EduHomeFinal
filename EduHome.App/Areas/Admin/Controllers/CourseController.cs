@@ -2,14 +2,18 @@
 using EduHome.App.Extensions;
 using EduHome.App.Services.Interfaces;
 using EduHome.Core.Entities;
-using Fir.App.Helpers;
+using EduHome.App.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Common;
+using System.Data;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
+
     public class CourseController : Controller
     {
         private readonly EduHomeDbContext _context;

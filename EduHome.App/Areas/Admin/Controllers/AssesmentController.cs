@@ -1,13 +1,15 @@
 ﻿using EduHome.App.Context;
 using EduHome.App.Extensions;
 using EduHome.Core.Entities;
-using Fir.App.Helpers;
+using EduHome.App.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="Admin,SuperAdmin")]
     public class AssesmentController : Controller
     {
         private readonly EduHomeDbContext _context;

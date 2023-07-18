@@ -1,4 +1,4 @@
-﻿namespace Fir.App.Helpers
+﻿namespace EduHome.App.Helpers
 {
     public class Helper
     {

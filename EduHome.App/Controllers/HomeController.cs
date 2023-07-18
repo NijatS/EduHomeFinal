@@ -30,6 +30,9 @@ namespace EduHome.App.Controllers
                  .ToList(),
                 Service = _context.Services.Where(x => !x.IsDeleted)
                    .FirstOrDefault(),
+                Blogs = _context.Blogs.Where(x => !x.IsDeleted)
+                .Take(3)
+                 .ToList(),
             };
             return View(homeVM);
         }

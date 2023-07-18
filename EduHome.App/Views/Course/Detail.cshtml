@@ -125,18 +125,16 @@
                         <div class="single-blog-widget mb-50">
                             <h3>categories</h3>
                             <ul>
-                                <li><a href="#">CSS Engineering (10)</a></li>
-                                <li><a href="#">Political Science (12)</a></li>
-                                <li><a href="#">Micro Biology (08)</a></li>
-                                <li><a href="#">HTML5 &amp; CSS3 (15)</a></li>
-                                <li><a href="#">Web Design (20)</a></li>
-                                <li><a href="#">PHP (23)</a></li>
+                            @foreach (var item in ViewBag.Categories)
+                            {
+                                <li><a asp-action="index" asp-controller="course" asp-route-id="@item.Id">@item.Name (@item.courseCategories.Count)</a></li>
+                            }
                             </ul>
                         </div>
                         <div class="single-blog-widget mb-50">
                             <div class="single-blog-banner">
                                 <a href="blog-details.html" id="blog">
-                                    <img src="img/blog/blog-img.jpg" alt="blog" />
+                                    <img src="~/img/blog/blog-img.jpg" alt="blog" />
                                 </a>
                                 <h2>
                                     best<br />
@@ -150,7 +148,7 @@
                             <div class="single-post mb-30">
                                 <div class="single-post-img">
                                     <a href="blog-details.html">
-                                        <img src="img/post/post1.jpg" alt="post" />
+                                        <img src="~/img/post/post1.jpg" alt="post" />
                                         <div class="blog-hover">
                                             <i class="fa fa-link"></i>
                                         </div>
@@ -166,7 +164,7 @@
                             <div class="single-post mb-30">
                                 <div class="single-post-img">
                                     <a href="blog-details.html">
-                                        <img src="img/post/post2.jpg" alt="post" />
+                                        <img src="~/img/post/post2.jpg" alt="post" />
                                         <div class="blog-hover">
                                             <i class="fa fa-link"></i>
                                         </div>
@@ -182,7 +180,7 @@
                             <div class="single-post">
                                 <div class="single-post-img">
                                     <a href="blog-details.html">
-                                        <img src="img/post/post3.jpg" alt="post" />
+                                        <img src="~/img/post/post3.jpg" alt="post" />
                                         <div class="blog-hover">
                                             <i class="fa fa-link"></i>
                                         </div>

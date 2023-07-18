@@ -1,9 +1,11 @@
 ﻿using EduHome.App.Context;
 using EduHome.App.Extensions;
+using EduHome.App.Services.Interfaces;
 using EduHome.Core.Entities;
 using Fir.App.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
@@ -12,11 +14,13 @@ namespace EduHome.App.Areas.Admin.Controllers
     {
         private readonly EduHomeDbContext _context;
         private readonly IWebHostEnvironment _environment;
+        private readonly IEmailService _emailService;
 
-        public CourseController(IWebHostEnvironment environment, EduHomeDbContext context)
+        public CourseController(IWebHostEnvironment environment, EduHomeDbContext context, IEmailService emailService)
         {
             _environment = environment;
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> Index()
@@ -95,6 +99,19 @@ namespace EduHome.App.Areas.Admin.Controllers
 
             course.Image = course.file.CreateImage(_environment.WebRootPath, "img/course/");
             course.CreatedDate = DateTime.Now;
+            IEnumerable<Subscribe> subscribes = await _context.Subscribes.Where(x => !x.IsDeleted)
+             .ToListAsync();
+            foreach (var mail in subscribes)
+            {
+                //string? link = Url.Action(action: "VerifyEmail", controller: "Account", values: new
+                //{
+                //    token = token,
+                //    mail = appUser.Email
+                //}, protocol: Request.Scheme);
+
+                await _emailService.SendMail("nicatsoltanli03@gmail.com", mail.Email,
+                    "New Product", "We have new Products", "#", "Customer");
+            }
             await _context.AddAsync(course);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

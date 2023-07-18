@@ -15,20 +15,41 @@ namespace EduHome.App.Controllers
 			_context = context;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int? id = null)
 		{
-			IEnumerable<Course> courses = await _context.Courses.Where(x => !x.IsDeleted)
-				.Include(x=>x.courseAssests)
-				  .Include(x=>x.courseCategories)
-				 .ThenInclude(x=>x.Category)
-                       .Include(x => x.courseTags)
-                 .ThenInclude(x => x.Tag)
-				.ToListAsync();
-			return View(courses);
-		}
+			if (id == null)
+			{
+				IEnumerable<Course> courses = await _context.Courses.Where(x => !x.IsDeleted)
+						.Include(x => x.courseAssests)
+						  .Include(x => x.courseCategories)
+						 .ThenInclude(x => x.Category)
+							   .Include(x => x.courseTags)
+						 .ThenInclude(x => x.Tag)
+						.ToListAsync();
+                return View(courses);
+
+            }
+			else
+			{
+                IEnumerable<Course> courses = await _context.Courses.Where(x => !x.IsDeleted && x.courseCategories.Any(x => x.Category.Id == id))
+             .Include(x => x.courseAssests)
+               .Include(x => x.courseCategories)
+              .ThenInclude(x => x.Category)
+                    .Include(x => x.courseTags)
+              .ThenInclude(x => x.Tag)
+             .ToListAsync();
+                return View(courses);
+            }
+
+            //x.courseCategories.Any(x => x.Category.Id == id))
+        }
 		public async Task<IActionResult> Detail(int id)
 		{
-            Course Course = await _context.Courses.Where(x => !x.IsDeleted)
+			ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted)
+				.Include(x=>x.courseCategories)
+				 .ThenInclude(x=>x.Course)
+				.ToListAsync();
+            Course Course = await _context.Courses.Where(x => !x.IsDeleted )
                     .Include(x => x.courseAssests)
                       .Include(x => x.courseCategories)
                      .ThenInclude(x => x.Category)
@@ -44,8 +65,8 @@ namespace EduHome.App.Controllers
 			{
                 Course = Course
             };
-
 			return View(courseVM);
 		}
+
 	}
 }

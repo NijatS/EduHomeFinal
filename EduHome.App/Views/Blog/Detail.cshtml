@@ -1,4 +1,5 @@
-﻿        <!-- Banner Area Start -->
+﻿@model BlogVM
+        <!-- Banner Area Start -->
 <div class="banner-area-wrapper">
     <div class="banner-area text-center">
         <div class="container">
@@ -21,16 +22,16 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="blog-details">
-                    <div class="blog-details-img">
-                        <img src="img/blog/blog-detail.jpg" alt="blog-details">
+                    <div style="width:767px;height:367px;" class="blog-details-img">
+                        <img style="width:100%;height:100%;" src="~/img/blog/@Model.Blog.Image" alt="blog-details">
                     </div>
                     <div class="blog-details-content">
-                        <h2>I must explain to you how all this a mistaken idea </h2>
-                        <h6>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</h6>
-                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque sa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam volutatem quia voluptas sit asnatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui </p>
-                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
+                        <h2>@Model.Blog.Title</h2>
+                        <h6>By @Model.Blog.Author  /  @Model.Blog.CreatedDate.Day.@Model.Blog.CreatedDate.Month.@Model.Blog.CreatedDate.Year  /  <i class="fa fa-comments-o"></i> 4</h6>
+                        <p>@Model.Blog.Description</p>
+@*                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
                         <p class="quote">I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam</p>
-                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque sa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo emo enim ipsam</p>
+                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque sa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo emo enim ipsam</p>*@
                     </div>
                     <div class="reply-area">
                         <h3>LEAVE A REPLY</h3>

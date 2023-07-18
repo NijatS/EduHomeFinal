@@ -13,7 +13,15 @@
             </div>
             <div class="course-content">
                 <h3><a asp-action="detail" asp-controller="course" asp-route-id="@item.Id">@item.Name</a></h3>
-                <p>@item.Description.Substring(0, 100)</p>
+                <p>@if (item.Description.Length<=100)
+                    {
+                        @item.Description
+                    }
+                    else
+                    {
+                        @item.Description.Substring(0, 100)
+                    }
+                </p>
                 <a class="default-btn" asp-action="detail" asp-controller="course" asp-route-id="@item.Id">read more</a>
             </div>
         </div>

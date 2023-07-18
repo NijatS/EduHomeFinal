@@ -85,6 +85,11 @@ namespace EduHome.App.Controllers
         {
             string username = User.Identity.Name;
             AppUser appUser = await _userManager.FindByNameAsync(username);
+            if (!await _userManager.IsInRoleAsync(appUser, "User"))
+            {
+                TempData["AdminInfo"] = "You cannot see Admin Info";
+                return RedirectToAction("index","home");
+            }
             return View(appUser);
             
         }
@@ -105,6 +110,11 @@ namespace EduHome.App.Controllers
             if (appUser is null)
             {
                 ModelState.AddModelError("", "Username or password is not correct ");
+                return View(loginVM);
+            }
+            if (!await _userManager.IsInRoleAsync(appUser, "User"))
+            {
+                ModelState.AddModelError("", "Access Failed");
                 return View(loginVM);
             }
             var result = await _signInManager.PasswordSignInAsync(appUser, loginVM.Password, loginVM.RememberMe, true);

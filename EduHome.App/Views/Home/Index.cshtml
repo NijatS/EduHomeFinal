@@ -12,6 +12,12 @@
             @TempData["Verify"]
         </div>
     }
+    @if (!string.IsNullOrWhiteSpace((string)TempData["AdminInfo"]))
+    {
+        <div style="display:none;" id="adminInfo">
+           @TempData["AdminInfo"]
+        </div>
+    }
     <div class="slider-owl owl-theme owl-carousel">
         @foreach (var item in Model.Sliders)
         {
@@ -237,6 +243,7 @@
 <script>
     const verifyEmail = document.querySelector("#verifyEmail");
     const successVerify = document.querySelector("#successVerify")
+    const adminInfo = document.querySelector("#adminInfo");
     if(verifyEmail != undefined){
          const message1 = verifyEmail.innerHTML;
          if(message1 != ""){
@@ -261,4 +268,25 @@
             )
         }
     }
+    if (successVerify != undefined) {
+        const message = successVerify.innerHTML;
+        if (message != "") {
+            Swal.fire(
+                `${message}`,
+                'You clicked the button!',
+                'success'
+            )
+        }
+    }
+    if (adminInfo != undefined){
+        const message = adminInfo.innerHTML;
+        if (message != "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `${message}`,
+            })
+        }
+    }
+    
 </script>

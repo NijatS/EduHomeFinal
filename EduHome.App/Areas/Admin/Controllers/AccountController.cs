@@ -37,6 +37,10 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("index","home");
+            }
             return View();
         }
         [HttpPost]

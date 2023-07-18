@@ -14,25 +14,62 @@ namespace EduHome.App.Controllers
 		{
 			_context = context;
 		}
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int? id)
 		{
-			IEnumerable<Blog> blogs = await _context.Blogs.Where(x => !x.IsDeleted)
-				  .Include(x => x.BlogCategories)
-				 .ThenInclude(x => x.Category)
-					   .Include(x => x.BlogTags)
-				 .ThenInclude(x => x.Tag)
-				.ToListAsync();
-			return View(blogs);
+            ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted)
+              .Include(x => x.blogCategories)
+               .ThenInclude(x => x.Blog)
+                 .ToListAsync();
+            ViewBag.Tags = await _context.Tags.Where(x => !x.IsDeleted)
+    .Include(x => x.courseTags)
+     .ThenInclude(x => x.Course)
+    .ToListAsync();
+            if (id == null)
+			{
+				IEnumerable<Blog> blogs = await _context.Blogs.Where(x => !x.IsDeleted)
+					  .Include(x => x.BlogCategories)
+					 .ThenInclude(x => x.Category)
+						   .Include(x => x.BlogTags)
+					 .ThenInclude(x => x.Tag)
+					.ToListAsync();
+				return View(blogs);
+			}
+			else
+			{
+                IEnumerable<Blog> blogs = await _context.Blogs.Where(x => !x.IsDeleted && x.BlogCategories.Any(x => x.Category.Id == id))
+                    .Include(x => x.BlogCategories)
+                       .ThenInclude(x => x.Category)
+                    .Include(x => x.BlogTags)
+                       .ThenInclude(x => x.Tag)
+                    .ToListAsync();
+                return View(blogs);
+            }
 		}
 		public async Task<IActionResult> Detail(int id)
 		{
-			Blog? blog = await _context.Blogs.Where(x => !x.IsDeleted)
+            ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted)
+                .Include(x => x.blogCategories)
+                 .ThenInclude(x => x.Blog)
+                   .ToListAsync();
+            ViewBag.Blogs = await _context.Blogs.Where(x => !x.IsDeleted)
+                      .Include(x => x.BlogCategories)
+                     .ThenInclude(x => x.Category)
+                           .Include(x => x.BlogTags)
+                     .ThenInclude(x => x.Tag)
+                     .Take(3)
+                    .ToListAsync();
+            ViewBag.Tags = await _context.Tags.Where(x => !x.IsDeleted)
+             .Include(x => x.courseTags)
+               .ThenInclude(x => x.Course)
+                  .ToListAsync();
+            Blog? blog = await _context.Blogs.Where(x => !x.IsDeleted)
 			  .Include(x => x.BlogCategories)
 				 .ThenInclude(x => x.Category)
 					   .Include(x => x.BlogTags)
 				 .ThenInclude(x => x.Tag)
 					.FirstOrDefaultAsync();
-			if (blog is null)
+  
+            if (blog is null)
 			{
 				return NotFound();
 			}

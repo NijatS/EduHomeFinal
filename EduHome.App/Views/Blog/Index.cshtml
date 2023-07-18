@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<Blog>
+@{
+    int i = 0;
+}
 <!-- Banner Area Start -->
 <div class="banner-area-wrapper">
     <div class="banner-area text-center">
@@ -23,10 +26,10 @@
             <div class="col-md-8">
                 <div class="row">
                     @foreach(var item in Model){
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12" style="height:500px;">
                         <div class="single-blog mb-60">
                             <div class="blog-img">
-                                <a asp-action="detail" asp-controller="blog" asp-route-id="@item.Id"><img src="~/img/blog/@item.Image" alt="blog"></a>
+                                <a asp-action="detail" asp-controller="blog" asp-route-id="@item.Id"><img style="height:250px;" src="~/img/blog/@item.Image" alt="blog"></a>
                                 <div class="blog-hover">
                                     <i class="fa fa-link"></i>
                                 </div>
@@ -35,7 +38,7 @@
                                 <div class="blog-top">
                                         <p>By @item.Author  /  @item.CreatedDate.Day.@item.CreatedDate.Month.@item.CreatedDate.Year  /  <i class="fa fa-comments-o"></i> 4</p>
                                 </div>
-                                <div class="blog-bottom">
+                                <div class="blog-bottom" style="height:140px;">
                                         <h2><a asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">@item.Title </a></h2>
                                         <a asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">read more</a>
                                 </div>
@@ -70,74 +73,52 @@
                     <div class="single-blog-widget mb-50">
                         <h3>categories</h3>
                         <ul>
-                            <li><a href="#">CSS Engineering (10)</a></li>
-                            <li><a href="#">Political Science (12)</a></li>
-                            <li><a href="#">Micro Biology (08)</a></li>
-                            <li><a href="#">HTML5 &amp; CSS3 (15)</a></li>
-                            <li><a href="#">Web Design (20)</a></li>
-                            <li><a href="#">PHP (23)</a></li>
+                            @foreach (var item in ViewBag.Categories)
+                            {
+                                <li><a asp-action="index" asp-controller="blog" asp-route-id="@item.Id">@item.Name (@item.blogCategories.Count)</a></li>
+                            }
                         </ul>
                     </div>
                     <div class="single-blog-widget mb-50">
                         <div class="single-blog-banner">
-                            <a href="blog-details.html" id="blog"><img src="img/blog/blog-img.jpg" alt="blog"></a>
+                            <a href="blog-details.html" id="blog"><img src="~/img/blog/blog-img.jpg" alt="blog"></a>
                             <h2>best<br> eductaion<br> theme</h2>
                         </div>
                     </div>
                     <div class="single-blog-widget mb-50">
-                        <h3>latest post</h3>
-                        <div class="single-post mb-30">
-                            <div class="single-post-img">
-                                <a href="blog-details.html">
-                                    <img src="img/post/post1.jpg" alt="post">
-                                    <div class="blog-hover">
-                                        <i class="fa fa-link"></i>
-                                    </div>
-                                </a>
+                        <h3>latest blogs</h3>
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                            if (i == 4)
+                            {
+                                return;
+                            }
+                            <div class="single-post mb-30">
+                                <div class="single-post-img">
+                                    <a style="width:95px;height:84px;" asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">
+                                        <img style="width: 100%;height: 100%;" src="~/img/blog/@item.Image" alt="post" />
+                                        <div class="blog-hover">
+                                            <i class="fa fa-link"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="single-post-content">
+                                    <h4>
+                                        <a asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">@item.Title</a>
+                                    </h4>
+                                    <p>By @item.Author  /  @item.CreatedDate.Day.@item.CreatedDate.Month.@item.CreatedDate.Year</p>
+                                </div>
                             </div>
-                            <div class="single-post-content">
-                                <h4><a href="blog-details.html">English Language Course for you</a></h4>
-                                <p>By Alex  /  June 20, 2017</p>
-                            </div>
-                        </div>
-                        <div class="single-post mb-30">
-                            <div class="single-post-img">
-                                <a href="blog-details.html">
-                                    <img src="img/post/post2.jpg" alt="post">
-                                    <div class="blog-hover">
-                                        <i class="fa fa-link"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="single-post-content">
-                                <h4><a href="blog-details.html">Advance Web Design and Develop</a></h4>
-                                <p>By Alex  /  June 20, 2017</p>
-                            </div>
-                        </div>
-                        <div class="single-post">
-                            <div class="single-post-img">
-                                <a href="blog-details.html">
-                                    <img src="img/post/post3.jpg" alt="post">
-                                    <div class="blog-hover">
-                                        <i class="fa fa-link"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="single-post-content">
-                                <h4><a href="blog-details.html">English Language Course for you</a></h4>
-                                <p>By Alex  /  June 20, 2017</p>
-                            </div>
-                        </div>
+                        }
                     </div>
                     <div class="single-blog-widget">
                         <h3>tags</h3>
                         <div class="single-tag">
-                            <a href="blog-details.html" class="mr-10 mb-10">course</a>
-                            <a href="blog-details.html" class="mr-10 mb-10">education</a>
-                            <a href="blog-details.html" class="mb-10">teachers</a>
-                            <a href="blog-details.html" class="mr-10">learning</a>
-                            <a href="blog-details.html" class="mr-10">university</a>
-                            <a href="blog-details.html">events</a>
+                            @foreach (var item in ViewBag.Tags)
+                            {
+                                <a style="cursor:pointer;" class="mr-10 mb-10">@item.Name</a>
+                            }
                         </div>
                     </div>
                 </div>

@@ -49,7 +49,18 @@ namespace EduHome.App.Controllers
 				.Include(x=>x.courseCategories)
 				 .ThenInclude(x=>x.Course)
 				.ToListAsync();
-            Course Course = await _context.Courses.Where(x => !x.IsDeleted )
+			ViewBag.Blogs = await _context.Blogs.Where(x => !x.IsDeleted)
+                  .Include(x => x.BlogCategories)
+                 .ThenInclude(x => x.Category)
+                       .Include(x => x.BlogTags)
+                 .ThenInclude(x => x.Tag)
+				 .Take(3)
+                .ToListAsync();
+			ViewBag.Tags = await _context.Tags.Where(x => !x.IsDeleted)
+                .Include(x => x.courseTags)
+                 .ThenInclude(x => x.Course)
+                .ToListAsync();
+            Course? Course = await _context.Courses.Where(x => !x.IsDeleted )
                     .Include(x => x.courseAssests)
                       .Include(x => x.courseCategories)
                      .ThenInclude(x => x.Category)

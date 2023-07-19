@@ -60,7 +60,7 @@ namespace EduHome.App.Controllers
                 .Include(x => x.courseTags)
                  .ThenInclude(x => x.Course)
                 .ToListAsync();
-            Course? Course = await _context.Courses.Where(x => !x.IsDeleted )
+            Course? Course = await _context.Courses.Where(x => !x.IsDeleted && x.Id ==id)
                     .Include(x => x.courseAssests)
                       .Include(x => x.courseCategories)
                      .ThenInclude(x => x.Category)

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Common;
 using System.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
@@ -19,12 +20,14 @@ namespace EduHome.App.Areas.Admin.Controllers
         private readonly EduHomeDbContext _context;
         private readonly IWebHostEnvironment _environment;
         private readonly IEmailService _emailService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CourseController(IWebHostEnvironment environment, EduHomeDbContext context, IEmailService emailService)
+        public CourseController(IWebHostEnvironment environment, EduHomeDbContext context, IEmailService emailService, UserManager<AppUser> userManager)
         {
             _environment = environment;
             _context = context;
             _emailService = emailService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -105,19 +108,16 @@ namespace EduHome.App.Areas.Admin.Controllers
             course.CreatedDate = DateTime.Now;
             IEnumerable<Subscribe> subscribes = await _context.Subscribes.Where(x => !x.IsDeleted)
              .ToListAsync();
-            foreach (var mail in subscribes)
-            {
-                //string? link = Url.Action(action: "VerifyEmail", controller: "Account", values: new
-                //{
-                //    token = token,
-                //    mail = appUser.Email
-                //}, protocol: Request.Scheme);
-
-                await _emailService.SendMail("nicatsoltanli03@gmail.com", mail.Email,
-                    "New Product", "We have new Products", "#", "Customer");
-            }
+            AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
             await _context.AddAsync(course);
             await _context.SaveChangesAsync();
+
+            foreach (var mail in subscribes)
+            {
+                string? link = Request.Scheme+"://" + Request.Host + $"/Course/detail/{course.Id}";
+                await _emailService.SendMail("nicatsoltanli03@gmail.com", mail.Email,
+                    "New Product", "We have new Products", link, "Customer");
+            }
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]

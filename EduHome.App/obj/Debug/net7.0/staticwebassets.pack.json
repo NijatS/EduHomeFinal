@@ -685,8 +685,16 @@
       "PackagePath": "staticwebassets\\img\\course\\07061f9a-160e-4953-95f8-9154de8e636fdownload.jpg"
     },
     {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\0ca55ca2-f6f6-4837-83dd-85a229004a1eimages (2).jpg",
+      "PackagePath": "staticwebassets\\img\\course\\0ca55ca2-f6f6-4837-83dd-85a229004a1eimages (2).jpg"
+    },
+    {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\2276f203-c395-420a-81e9-1c88427b168aimages (2).jpg",
       "PackagePath": "staticwebassets\\img\\course\\2276f203-c395-420a-81e9-1c88427b168aimages (2).jpg"
+    },
+    {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\3e81e7d9-9367-4694-bddc-4ec7d3881b33images (2).jpg",
+      "PackagePath": "staticwebassets\\img\\course\\3e81e7d9-9367-4694-bddc-4ec7d3881b33images (2).jpg"
     },
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\496dab84-afce-443b-b556-226c01302590download (1).jpg",
@@ -695,6 +703,10 @@
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\79a7ae35-7f3a-461b-8eed-f5f99898c232download (1).jpg",
       "PackagePath": "staticwebassets\\img\\course\\79a7ae35-7f3a-461b-8eed-f5f99898c232download (1).jpg"
+    },
+    {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\83196466-b9af-4b74-a4a9-17fe089c078dimages (1).jpg",
+      "PackagePath": "staticwebassets\\img\\course\\83196466-b9af-4b74-a4a9-17fe089c078dimages (1).jpg"
     },
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\course-bg.jpg",
@@ -739,6 +751,14 @@
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\courses-details.jpg",
       "PackagePath": "staticwebassets\\img\\course\\courses-details.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\d4f49076-7ff7-4170-9074-1afdc9c7dca3download.jpg",
+      "PackagePath": "staticwebassets\\img\\course\\d4f49076-7ff7-4170-9074-1afdc9c7dca3download.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\face3907-a9dd-433f-acd9-1f9904758e85images (1).jpg",
+      "PackagePath": "staticwebassets\\img\\course\\face3907-a9dd-433f-acd9-1f9904758e85images (1).jpg"
     },
     {
       "Id": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\event\\event-details.jpg",

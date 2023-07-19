@@ -27,6 +27,7 @@ namespace EduHome.App.Controllers
                  .Include(x => x.Socials).Take(3)
                 .ToList(),
                 Courses = _context.Courses.Where(x => !x.IsDeleted)
+                .Take(3)
                  .ToList(),
                 Service = _context.Services.Where(x => !x.IsDeleted)
                    .FirstOrDefault(),

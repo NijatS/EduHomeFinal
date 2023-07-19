@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<Course>
 @foreach (var item in Model)
 {
-    <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="col-md-4 col-sm-6 col-xs-12" style="width:400px; height:540px;">
         <div class="single-course">
             <div class="course-img">
                 <a asp-action="detail" asp-controller="course" asp-route-id="@item.Id">
-                    <img src="~/img/course/@item.Image" alt="course">
+                    <img style="width:370px;height:250px;" src="~/img/course/@item.Image" alt="course">
                     <div class="course-hover">
                         <i class="fa fa-link"></i>
                     </div>
                 </a>
             </div>
-            <div class="course-content">
+            <div class="course-content" style="height:220px;">
                 <h3><a asp-action="detail" asp-controller="course" asp-route-id="@item.Id">@item.Name</a></h3>
                 <p>@if (item.Description.Length<=100)
                     {

@@ -3,6 +3,7 @@ using EduHome.App.ViewModels;
 using EduHome.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 
 namespace EduHome.App.Controllers
 {
@@ -15,9 +16,30 @@ namespace EduHome.App.Controllers
 			_context = context;
 		}
 
-		public async Task<IActionResult> Index(int? id = null)
+		public async Task<IActionResult> Index(int? id = null,string? search = null, int page = 1)
 		{
-			if (id == null)
+            int TotalCount = _context.Courses.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 3);
+            ViewBag.CurrentPage = page;
+            if(search != null)
+            {
+                TotalCount = _context.Courses.Where(x => !x.IsDeleted && x.Name.Contains(search)).Count();
+                ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 3);
+                List<Course> courses = await _context.Courses.Where(x => !x.IsDeleted && x.Name.Contains(search))
+                    .Include(x => x.courseAssests)
+                      .Include(x => x.courseCategories)
+                     .ThenInclude(x => x.Category)
+                           .Include(x => x.courseTags)
+                     .ThenInclude(x => x.Tag)
+                     .Skip((page - 1) * 3).Take(3)
+                    .ToListAsync();
+                if(courses is null)
+                {
+                    return View(null);
+                }
+                  return View(courses);
+            }
+            if (id == null)
 			{
 				IEnumerable<Course> courses = await _context.Courses.Where(x => !x.IsDeleted)
 						.Include(x => x.courseAssests)
@@ -25,9 +47,9 @@ namespace EduHome.App.Controllers
 						 .ThenInclude(x => x.Category)
 							   .Include(x => x.courseTags)
 						 .ThenInclude(x => x.Tag)
-						.ToListAsync();
+                         .Skip((page - 1) * 3).Take(3)
+                        .ToListAsync();
                 return View(courses);
-
             }
 			else
 			{
@@ -40,8 +62,6 @@ namespace EduHome.App.Controllers
              .ToListAsync();
                 return View(courses);
             }
-
-            //x.courseCategories.Any(x => x.Category.Id == id))
         }
 		public async Task<IActionResult> Detail(int id)
 		{

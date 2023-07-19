@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "g74thHUywpWicIgO0KEQJ8JsM/HbW4bpS8vH0D7JE4o=",
+  "Hash": "1yrwC4ErxdyhHbhbmk9/aCJ8TwBLFgSWOL3y8U5FN8o=",
   "Source": "EduHome.App",
   "BasePath": "_content/EduHome.App",
   "Mode": "Default",
@@ -3228,6 +3228,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\course\\d4f49076-7ff7-4170-9074-1afdc9c7dca3download.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\e75ffca1-212c-4065-97d2-6582166a6c9fdownload.jpg",
+      "SourceId": "EduHome.App",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\",
+      "BasePath": "_content/EduHome.App",
+      "RelativePath": "img/course/e75ffca1-212c-4065-97d2-6582166a6c9fdownload.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\course\\e75ffca1-212c-4065-97d2-6582166a6c9fdownload.jpg"
     },
     {
       "Identity": "C:\\Users\\Nijat\\source\\repos\\EduHome.App\\EduHome.App\\wwwroot\\img\\course\\face3907-a9dd-433f-acd9-1f9904758e85images (1).jpg",

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Course>
 @foreach (var item in Model)
 {
-    <div class="col-md-4 col-sm-6 col-xs-12" style="width:400px; height:540px;">
+    <div class="col-md-4 col-sm-6 col-xs-12 courseCard" style="width:400px; height:540px;">
         <div class="single-course">
             <div class="course-img">
                 <a asp-action="detail" asp-controller="course" asp-route-id="@item.Id">

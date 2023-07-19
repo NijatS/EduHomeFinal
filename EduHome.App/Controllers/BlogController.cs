@@ -14,8 +14,11 @@ namespace EduHome.App.Controllers
 		{
 			_context = context;
 		}
-		public async Task<IActionResult> Index(int? id)
+		public async Task<IActionResult> Index(int? id, int page = 1)
 		{
+            int TotalCount = _context.Blogs.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 4);
+            ViewBag.CurrentPage = page;
             ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted)
               .Include(x => x.blogCategories)
                .ThenInclude(x => x.Blog)
@@ -31,7 +34,8 @@ namespace EduHome.App.Controllers
 					 .ThenInclude(x => x.Category)
 						   .Include(x => x.BlogTags)
 					 .ThenInclude(x => x.Tag)
-					.ToListAsync();
+                      .Skip((page - 1) * 4).Take(4)
+                    .ToListAsync();
 				return View(blogs);
 			}
 			else

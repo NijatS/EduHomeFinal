@@ -25,16 +25,75 @@
                     <h3>search courses</h3>
                 </div>
                 <div class="course-form">
-                    <form id="search" action="#">
-                        <input type="search" placeholder="Search..." name="search" />
-                        <button type="submit">search</button>
+                    <form id="search">
+                        <input class="searchInput" type="search" placeholder="Search..." name="search" />
+                        <button  class="SearchButton" type="submit" asp-action="index" asp-controller="course">search</button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row course_container">
             @await Html.PartialAsync("_Course",Model)
         </div>
+        <ul class="pagination">
+            <li><a class=" page-link" asp-controller="course" asp-action="index" asp-route-page="1">«</a></li>
+            @for (int i = 1; i <= ViewBag.TotalPage; i++)
+            {
+                @if (i == ViewBag.CurrentPage)
+                {
+                    <li class="page-item active"><a class=" page-link" asp-controller="course" asp-action="index" asp-route-page="@i">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class=" page-link" asp-controller="course" asp-action="index" asp-route-page="@i">@i</a></li>
+                }
+            }
+            <li><a class="page-link" asp-controller="course" asp-action="index" asp-route-page="@ViewBag.TotalPage">»</a></li>
+        </ul>
+
     </div>
 </div>
 <!-- Course End -->
+@*<script>
+    const submit = document.querySelector(".SearchButton");
+    const searchInput = document.querySelector(".searchInput")
+    const container = document.querySelector(".course_container")
+    submit.addEventListener("click",(e)=>{
+        e.preventDefault();
+        let href = submit.getAttribute("href");
+        href += `?search=${searchInput.value}`;
+        fetch(href)
+            .then(x => x.json())
+            .then(x => {
+                container.innerHTML =""
+                x.forEach(item => {
+                    let view = ` <div class="col-md-4 col-sm-6 col-xs-12 courseCard" style="width:400px; height:540px;">
+                      <div class="single-course">
+                      <div class="course-img">
+                    <a asp-action="detail" asp-controller="course" asp-route-id="${item.Id}">
+                        <img style="width:370px;height:250px;" src="~/img/course/${item.Image}" alt="course">
+                        <div class="course-hover">
+                            <i class="fa fa-link"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="course-content" style="height:220px;">
+                    <h3><a asp-action="detail" asp-controller="course" asp-route-id="${item.Id}">${item.Name}</a></h3>
+                  <p>if (${ item.Description.Length} <= 100)
+                   {
+                   ${item.Description}
+                      }
+                     else
+                     {
+                       ${item.Description.Substring(0, 100)}
+                       }
+                    </p>
+                    <a class="default-btn" asp-action="detail" asp-controller="course" asp-route-id="${item.Id}">read more</a>
+                </div>
+            </div>
+        </div>`;
+                    container.innerHTML += view;
+                } )
+            })
+    })
+</script>*@

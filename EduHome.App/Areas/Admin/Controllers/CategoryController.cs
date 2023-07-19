@@ -24,9 +24,13 @@ namespace EduHome.App.Areas.Admin.Controllers
             _environment = environment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.Categories.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 8);
+            ViewBag.CurrentPage = page;
             IEnumerable<Category> Categories = await _context.Categories.Where(x => !x.IsDeleted)
+                .Skip((page - 1) * 8).Take(8)
                  .ToListAsync();
             return View(Categories);
         }

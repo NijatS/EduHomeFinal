@@ -20,9 +20,13 @@ namespace EduHome.App.Areas.Admin.Controllers
             _context = context;
             _environment = environment;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.Subscribes.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 10);
+            ViewBag.CurrentPage = page;
             IEnumerable<Subscribe> subscribes = await _context.Subscribes.Where(x => !x.IsDeleted)
+                .Skip((page - 1) * 10).Take(10)
                  .ToListAsync();
             return View(subscribes);
         }

@@ -21,9 +21,13 @@ namespace EduHome.App.Areas.Admin.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1 )
         {
+            int TotalCount = _context.Blogs.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 5);
+            ViewBag.CurrentPage = page;
             IEnumerable<Blog> blogs = await _context.Blogs.Where(x=>!x.IsDeleted)
+                .Skip((page - 1) * 5).Take(5)
                 .ToListAsync();
             return View(blogs);
         }

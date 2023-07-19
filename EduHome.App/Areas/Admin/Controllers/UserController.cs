@@ -24,17 +24,24 @@ namespace EduHome.App.Areas.Admin.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var allusers = await _context.Users.ToListAsync();
+            int i = 1;
+            var allusers = await _context.Users.
+                Skip((page - 1) * 5).Take(5)
+                .ToListAsync();
             List<AppUser> users = new List<AppUser>();
             foreach(var user in allusers)
             {
                 if (await _userManager.IsInRoleAsync(user,"User"))
                 {
                     users.Add(user);
+                    i++;
                 }
             }
+            int TotalCount = i;
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 5);
+            ViewBag.CurrentPage = page;
             return View(users);
         }
         [HttpGet]

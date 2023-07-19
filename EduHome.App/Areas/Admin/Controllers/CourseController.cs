@@ -30,10 +30,14 @@ namespace EduHome.App.Areas.Admin.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.Courses.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 5);
+            ViewBag.CurrentPage = page;
             IEnumerable<Course> courses = await _context.Courses.Where(x=>!x.IsDeleted)
                 .Include(x=>x.CourseLanguage)
+                .Skip((page - 1) * 5).Take(5)
                 .ToListAsync();
             return View(courses);
         }

@@ -22,9 +22,13 @@ namespace EduHome.App.Areas.Admin.Controllers
             _environment = environment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.Hobbies.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 5);
+            ViewBag.CurrentPage = page;
             IEnumerable<Hobby> Hobbys = await _context.Hobbies.Where(x => !x.IsDeleted)
+                .Skip((page - 1) * 5).Take(5)
                  .ToListAsync();
             return View(Hobbys);
         }

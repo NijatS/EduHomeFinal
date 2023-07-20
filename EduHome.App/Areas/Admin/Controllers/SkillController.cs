@@ -23,10 +23,14 @@ namespace EduHome.App.Areas.Admin.Controllers
             _environment = environment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.Skills.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 6);
+            ViewBag.CurrentPage = page;
             IEnumerable<Skill> Skills = await _context.Skills.Where(x => !x.IsDeleted)
                 .Include(x=>x.Teacher)
+                 .Skip((page - 1) * 6).Take(6)
                  .ToListAsync();
             return View(Skills);
         }

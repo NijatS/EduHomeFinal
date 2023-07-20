@@ -2,6 +2,7 @@
 using EduHome.App.ViewModels;
 using EduHome.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace EduHome.App.Controllers
 {
@@ -26,14 +27,23 @@ namespace EduHome.App.Controllers
         [HttpPost]
         public async Task<IActionResult> SendEmail(ContactMessage message)
         {
+            string strRegex = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
+
+            Regex re = new Regex(strRegex);
             if (!ModelState.IsValid)
             {
                 TempData["Message"] = "Please fill all inputs qaqa";
                 return RedirectToAction(nameof(Index));
             }
+            if (!re.IsMatch(message.Email))
+            {
+                TempData["Email"] = "Please add valid email";
+                return RedirectToAction("index", "home");
+            }
       
             await _context.ContactMessages.AddAsync(message);
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Successfully send message";
             return RedirectToAction(nameof(Index));
         }
     }

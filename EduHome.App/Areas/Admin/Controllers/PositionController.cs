@@ -22,9 +22,13 @@ namespace EduHome.App.Areas.Admin.Controllers
             _environment = environment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.Positions.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 6);
+            ViewBag.CurrentPage = page;
             IEnumerable<Position> Positions = await _context.Positions.Where(x => !x.IsDeleted)
+                 .Skip((page - 1) * 6).Take(6)
                  .ToListAsync();
             return View(Positions);
         }

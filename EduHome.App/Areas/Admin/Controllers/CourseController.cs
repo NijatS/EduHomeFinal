@@ -192,7 +192,7 @@ namespace EduHome.App.Areas.Admin.Controllers
                 course.Image = updatedCourse.Image;
 			}
             List<CourseCategory> RemoveableCategory = await _context.CourseCategories.
-               Where(x => !course.CategoryIds.Contains(x.CategoryId)).ToListAsync();
+               Where(x => !course.CategoryIds.Contains(x.CategoryId) && x.CourseId == course.Id ).ToListAsync();
 
             _context.CourseCategories.RemoveRange(RemoveableCategory);
             foreach (var item in course.CategoryIds)
@@ -207,7 +207,7 @@ namespace EduHome.App.Areas.Admin.Controllers
                 });
             }
             List<CourseTag> RemoveableTag = await _context.CourseTags.
-            Where(x => !course.TagIds.Contains(x.TagId)).ToListAsync();
+            Where(x => !course.TagIds.Contains(x.TagId) && x.CourseId == course.Id).ToListAsync();
 
             _context.CourseTags.RemoveRange(RemoveableTag);
             foreach (var item in course.TagIds)

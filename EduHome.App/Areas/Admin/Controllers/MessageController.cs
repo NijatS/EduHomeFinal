@@ -21,11 +21,25 @@ namespace EduHome.App.Areas.Admin.Controllers
             _context = context;
             _environment = environment;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.ContactMessages.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 8);
+            ViewBag.CurrentPage = page;
             IEnumerable<ContactMessage> messages = await _context.ContactMessages.Where(x => !x.IsDeleted)
+                .Skip((page - 1) * 8).Take(8)
                  .ToListAsync();
             return View(messages);
+        }
+        public async Task<IActionResult> Info(int id)
+        {
+            ContactMessage? message = await _context.ContactMessages.Where(x => x.Id == id && !x.IsDeleted)
+               .FirstOrDefaultAsync();
+            if (message is null)
+            {
+                return NotFound();
+            }
+            return View(message);
         }
         public async Task<IActionResult> Remove(int id)
         {

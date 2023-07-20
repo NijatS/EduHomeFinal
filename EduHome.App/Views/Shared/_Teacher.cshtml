@@ -9,8 +9,8 @@
             <div class="single-teacher-content text-center">
                 <h2><a asp-action="detail" asp-controller="teacher" asp-route-id="@item.Id">@item.Name</a></h2>
                 <h4>@item.Position.Name</h4>
-                <ul>
-                    @foreach (var link in item.Socials)
+                <ul style="width:270px;height:40px;">
+                    @foreach (var link in item.Socials.Take(4))
                     {
                         <li><a href="@link.Link"><i class="zmdi zmdi-@link.Name"></i></a></li>
                     }

@@ -21,11 +21,15 @@ namespace EduHome.App.Areas.Admin.Controllers
             _environment = environment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int TotalCount = _context.Teachers.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 4);
+            ViewBag.CurrentPage = page;
             IEnumerable<Teacher> teachers = await _context.Teachers.Where(x => !x.IsDeleted)
                 .Include(x=>x.Degree)
                 .Include(x=>x.Position)
+                 .Skip((page - 1) * 4).Take(4)
                  .ToListAsync();
             return View(teachers);
         }
@@ -129,8 +133,23 @@ namespace EduHome.App.Areas.Admin.Controllers
             {
                 return View(updatedTeacher);
             }
+            List<TeacherHobby> RemoveableHobby = await _context.TeacherHobbies.
+               Where(x => !teacher.HobbyIds.Contains(x.HobbyId)).ToListAsync();
 
-            if(teacher.file is not null)
+            _context.TeacherHobbies.RemoveRange(RemoveableHobby);
+            foreach (var item in teacher.HobbyIds)
+            {
+                if (_context.TeacherHobbies.Where(x => x.TeacherId == id && x.HobbyId == item).Count() > 0)
+                    continue;
+
+                await _context.TeacherHobbies.AddAsync(new TeacherHobby
+                {
+                    TeacherId = id,
+                    HobbyId = item
+                });
+            }
+
+            if (teacher.file is not null)
             {
                 if (!Helper.isImage(teacher.file))
                 {

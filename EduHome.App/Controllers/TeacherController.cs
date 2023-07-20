@@ -15,12 +15,16 @@ namespace EduHome.App.Controllers
 			_context = context;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int page = 1)
 		{
-			IEnumerable<Teacher> teachers = await _context.Teachers.Where(x => !x.IsDeleted)
-				.Include(x=>x.Socials)
+            int TotalCount = _context.Teachers.Where(x => !x.IsDeleted).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 12);
+            ViewBag.CurrentPage = page;
+            IEnumerable<Teacher> teachers = await _context.Teachers.Where(x => !x.IsDeleted)
+				.Include(x=>x.Socials.Take(4))
 				.Include(x=>x.Position)
-				.ToListAsync();
+                 .Skip((page - 1) * 12).Take(12)
+                .ToListAsync();
 			return View(teachers);
 		}
 		public async Task<IActionResult> Detail(int id)

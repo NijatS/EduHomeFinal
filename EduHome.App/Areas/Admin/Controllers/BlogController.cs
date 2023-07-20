@@ -5,6 +5,7 @@ using EduHome.App.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using EduHome.App.ViewModels;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
@@ -160,7 +161,7 @@ namespace EduHome.App.Areas.Admin.Controllers
                 blog.Image = updatedBlog.Image;
 			}
             List<BlogCategory> RemoveableCategory = await _context.BlogCategories.
-               Where(x => !blog.CategoryIds.Contains(x.CategoryId)).ToListAsync();
+               Where(x => !blog.CategoryIds.Contains(x.CategoryId) && x.BlogId == blog.Id).ToListAsync();
 
             _context.BlogCategories.RemoveRange(RemoveableCategory);
             foreach (var item in blog.CategoryIds)
@@ -175,7 +176,7 @@ namespace EduHome.App.Areas.Admin.Controllers
                 });
             }
             List<BlogTag> RemoveableTag = await _context.BlogTags.
-            Where(x => !blog.TagIds.Contains(x.TagId)).ToListAsync();
+            Where(x => !blog.TagIds.Contains(x.TagId) && x.BlogId == blog.Id).ToListAsync();
 
             _context.BlogTags.RemoveRange(RemoveableTag);
             foreach (var item in blog.TagIds)

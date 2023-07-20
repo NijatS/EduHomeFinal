@@ -20,8 +20,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-sm-5 col-xs-12">
-                <div class="teacher-details-img">
-                    <img src="~/img/teacher/@Model.Teacher.Image" alt="teacher">
+                <div style="width:470px;height:480px;" class="teacher-details-img">
+                    <img style="width:100%;height:100%;" src="~/img/teacher/@Model.Teacher.Image" alt="teacher">
                 </div>
             </div>
             <div class="col-md-7 col-sm-7 col-xs-12">
@@ -50,7 +50,7 @@
                     <p><span>make a call : </span>@Model.Teacher?.Number</p>
                     <p><span>skype : </span> @Model.Teacher?.Skype</p>
                     <ul>
-                            @foreach (var link in Model.Teacher?.Socials)
+                            @foreach (var link in Model.Teacher?.Socials.Take(4))
                             {
                             <li><a href="@link.Link"><i class="zmdi zmdi-@link.Name"></i></a></li>
                             }

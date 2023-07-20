@@ -23,6 +23,22 @@
         <div class="row">
             @await Html.PartialAsync("_Teacher",Model)
         </div>
+        <ul class="pagination">
+            <li><a class=" page-link" asp-controller="teacher" asp-action="index" asp-route-page="1">«</a></li>
+            @for (int i = 1; i <= ViewBag.TotalPage; i++)
+            {
+                @if (i == ViewBag.CurrentPage)
+                {
+                    <li class="page-item active"><a class=" page-link" asp-controller="teacher" asp-action="index" asp-route-page="@i">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class=" page-link" asp-controller="teacher" asp-action="index" asp-route-page="@i">@i</a></li>
+                }
+            }
+            <li><a class="page-link" asp-controller="teacher" asp-action="index" asp-route-page="@ViewBag.TotalPage">»</a></li>
+        </ul>
     </div>
 </div>
+
 <!-- Teacher End -->

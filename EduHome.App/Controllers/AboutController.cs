@@ -22,6 +22,7 @@ namespace EduHome.App.Controllers
                 .Include(x=>x.Position)
                   .Include(x=>x.Degree)
                  .Include(x=>x.Socials)
+                 .Take(4)
                 .ToList(),
                 Service = _context.Services.Where(x => !x.IsDeleted)
                    .FirstOrDefault(),

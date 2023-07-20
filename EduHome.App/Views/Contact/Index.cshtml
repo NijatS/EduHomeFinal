@@ -1,5 +1,11 @@
 ﻿@model ContactVM
 <!-- Banner Area Start -->
+@if (!string.IsNullOrWhiteSpace((string)TempData["Message"]))
+{
+    <div style="display:none;" id="messageFormat">
+        TempData["Message"]
+    </div>
+}
 <div class="banner-area-wrapper">
     <div class="banner-area text-center">
         <div class="container">
@@ -81,7 +87,7 @@
                                 <p>Subject</p>
                                 <input type="email" name="subject">
                                 <span class="text text-danger" asp-validation-for="@Model.Message.Subject"></span>
-                                <p>Massage</p>
+                                <p>Message</p>
                                 <textarea name="body" cols="15" rows="10"></textarea>
                                 <span class="text text-danger" asp-validation-for="@Model.Message.Body"></span>
                             </div>
@@ -95,3 +101,17 @@
     </div>
 </div>
 <!-- Contact End -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const messageFormat = document.querySelector("#messageFormat");
+    if (messageFormat != undefined) {
+        const message = messageFormat.innerHTML;
+        if (message != "") {
+            Swal.fire(
+                'Contact',
+                `${message}`,
+                'question'
+            )
+        }
+    }
+</script>

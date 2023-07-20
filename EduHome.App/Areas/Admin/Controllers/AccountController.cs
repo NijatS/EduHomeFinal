@@ -80,7 +80,7 @@ namespace EduHome.App.Areas.Admin.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("index","home");
+            return RedirectToAction("account/login","admin");
         }
         public async Task<IActionResult> ForgetPassword()
         {

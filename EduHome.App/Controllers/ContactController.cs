@@ -28,7 +28,8 @@ namespace EduHome.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return NotFound();
+                TempData["Message"] = "Please fill all inputs qaqa";
+                return RedirectToAction(nameof(Index));
             }
       
             await _context.ContactMessages.AddAsync(message);

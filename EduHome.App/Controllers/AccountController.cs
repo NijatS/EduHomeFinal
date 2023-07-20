@@ -184,6 +184,10 @@ namespace EduHome.App.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPasswordVM)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(resetPasswordVM);
+            }
             var user = await _userManager.FindByEmailAsync(resetPasswordVM.Mail);
             if (user is null)
             {

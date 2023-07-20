@@ -3,6 +3,7 @@ using EduHome.App.ViewModels;
 using EduHome.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace EduHome.App.Controllers
 {
@@ -40,9 +41,17 @@ namespace EduHome.App.Controllers
         [HttpPost]
         public async Task<IActionResult> PostSubscribe(Subscribe subscribe)
         {
+            string strRegex = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
+
+            Regex re = new Regex(strRegex);
             if (subscribe == null)
             {
                 return NotFound();
+            }
+            if (!re.IsMatch(subscribe.Email))
+            {
+                TempData["Email"] = "Please add valid email";
+                return RedirectToAction("index", "home");
             }
             if (!ModelState.IsValid)
             {

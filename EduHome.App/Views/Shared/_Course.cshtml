@@ -13,7 +13,8 @@
             </div>
             <div class="course-content" style="height:220px;">
                 <h3><a asp-action="detail" asp-controller="course" asp-route-id="@item.Id">@item.Name</a></h3>
-                <p>@if (item.Description.Length<=100)
+                <p style="height:72px;overflow:hidden;">
+                    @if (item.Description.Length <= 100)
                     {
                         @item.Description
                     }

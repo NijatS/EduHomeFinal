@@ -25,7 +25,7 @@ namespace EduHome.App.Controllers
             {
                 TotalCount = _context.Courses.Where(x => !x.IsDeleted && x.Name.Contains(search)).Count();
                 ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 3);
-                List<Course> courses = await _context.Courses.Where(x => !x.IsDeleted && x.Name.Contains(search))
+                List<Course> courses = await _context.Courses.Where(x => !x.IsDeleted && x.Name.Trim().ToLower().Contains(search.Trim().ToLower()))
                     .Include(x => x.courseAssests)
                       .Include(x => x.courseCategories)
                      .ThenInclude(x => x.Category)
@@ -62,6 +62,22 @@ namespace EduHome.App.Controllers
              .ToListAsync();
                 return View(courses);
             }
+        }
+
+        public async Task<IActionResult> Search(string search,int page = 1)
+        {
+            int TotalCount = _context.Courses.Where(x => !x.IsDeleted && x.Name.Trim().ToLower().Contains(search.Trim().ToLower())).Count();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)TotalCount / 3);
+            ViewBag.CurrentPage = page;
+            List<Course> courses = await _context.Courses.Where(x => !x.IsDeleted && x.Name.Trim().ToLower().Contains(search.Trim().ToLower()))
+                .Include(x => x.courseAssests)
+                  .Include(x => x.courseCategories)
+                 .ThenInclude(x => x.Category)
+                       .Include(x => x.courseTags)
+                 .ThenInclude(x => x.Tag)
+                    .Skip((page - 1) * 3).Take(3)
+                .ToListAsync();
+            return Json(courses);
         }
 		public async Task<IActionResult> Detail(int id)
 		{

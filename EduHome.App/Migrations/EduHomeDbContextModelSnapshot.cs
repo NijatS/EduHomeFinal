@@ -711,13 +711,18 @@ namespace EduHome.App.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
 
                     b.HasIndex("TeacherId");
 
@@ -1115,11 +1120,15 @@ namespace EduHome.App.Migrations
 
             modelBuilder.Entity("EduHome.Core.Entities.Social", b =>
                 {
+                    b.HasOne("EduHome.Core.Entities.Service", "Service")
+                        .WithMany("Socials")
+                        .HasForeignKey("ServiceId");
+
                     b.HasOne("EduHome.Core.Entities.Teacher", "Teacher")
                         .WithMany("Socials")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Service");
 
                     b.Navigation("Teacher");
                 });
@@ -1257,6 +1266,11 @@ namespace EduHome.App.Migrations
             modelBuilder.Entity("EduHome.Core.Entities.Position", b =>
                 {
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("EduHome.Core.Entities.Service", b =>
+                {
+                    b.Navigation("Socials");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Tag", b =>

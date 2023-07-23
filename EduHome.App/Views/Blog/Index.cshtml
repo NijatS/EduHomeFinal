@@ -75,13 +75,8 @@
                     </div>
                     <div class="single-blog-widget mb-50">
                         <h3>latest blogs</h3>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Take(3))
                         {
-                            i++;
-                            if (i == 4)
-                            {
-                                return;
-                            }
                             <div class="single-post mb-30">
                                 <div class="single-post-img">
                                     <a style="width:95px;height:84px;" asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">
@@ -93,7 +88,13 @@
                                 </div>
                                 <div class="single-post-content">
                                     <h4>
-                                        <a asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">@item.Title</a>
+                                        @if(item.Title.Length <= 25)
+                                        {
+                                            <a asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">@item.Title</a>
+                                        }
+                                        else{
+                                            <a  asp-action="detail" asp-controller="blog" asp-route-id="@item.Id">@item.Title.Substring(0, 25)</a>
+                                        }
                                     </h4>
                                     <p>By @item.Author  /  @item.CreatedDate.Day.@item.CreatedDate.Month.@item.CreatedDate.Year</p>
                                 </div>

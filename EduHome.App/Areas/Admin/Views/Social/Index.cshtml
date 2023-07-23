@@ -15,8 +15,15 @@
             @foreach (var item in Model)
             {
                     <tr>
-                        <th scope="row">@item.Id</th>
-                    <th scope="row">@item.Teacher?.Name</th>
+                    <th scope="row">@item.Id</th>
+                    @if (item.TeacherId == null)
+                    {
+                        <th scope="row">Setting</th>
+                    }
+                    else
+                    {
+                        <th scope="row">@item.Teacher?.Name</th>
+                    }
                         <th>@item.Name</th>
                     <th>@item.CreatedDate.Day/@item.CreatedDate.Month/@item.CreatedDate.Year</th>
                         <td><a asp-controller="social" asp-action="update" asp-route-id="@item.Id" >

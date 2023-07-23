@@ -32,6 +32,7 @@
 			</select>
 			<span asp-validation-for="TeacherId" class="text text-danger"></span>
 		</div>
+		<div class="text text-warning">If you add social to setting,please don`t select Teacher</div>
 		@Html.AntiForgeryToken()
 		<button type="submit">Create</button>
 	</form>

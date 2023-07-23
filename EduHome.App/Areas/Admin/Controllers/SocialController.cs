@@ -45,17 +45,24 @@ namespace EduHome.App.Areas.Admin.Controllers
         public async Task<IActionResult> Create(Social Social)
         {
 			ViewBag.Teachers = await _context.Teachers.Where(x => !x.IsDeleted).
-	  ToListAsync();
+	        ToListAsync();
 			if (!ModelState.IsValid)
             {
                 return View(Social);
             }
-			if (Social.TeacherId == 0)
-			{
-				ModelState.AddModelError("", "Teacher must be selected");
-				return View(Social);
-			}
-			Social.CreatedDate = DateTime.Now;
+            if(Social.TeacherId == 0 && Social.ServiceId == 0)
+            {
+                ModelState.AddModelError("", "Teacher or Setting Id must be selected");
+                return View(Social);
+            }
+            if (Social.TeacherId == 0)
+            {
+                //    ModelState.AddModelError("", "Teacher must be selected");
+                Social.TeacherId = null;
+                Social.ServiceId = _context.Services.Where(x=>!x.IsDeleted).FirstOrDefault()?.Id;
+                //    return View(Social);
+            }
+            Social.CreatedDate = DateTime.Now;
             await _context.AddAsync(Social);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -85,12 +92,17 @@ namespace EduHome.App.Areas.Admin.Controllers
             {
                 return View(Social);
             }
-			if (Social.TeacherId == 0)
-			{
-				ModelState.AddModelError("", "Teacher must be selected");
-				return View(Social);
-			}
-			if (!ModelState.IsValid)
+            if (Social.TeacherId == 0 && Social.ServiceId == 0)
+            {
+                ModelState.AddModelError("", "Teacher or Setting Id must be selected");
+                return View(Social);
+            }
+            if (Social.TeacherId == 0)
+            {
+                Social.TeacherId = null;
+                Social.ServiceId = _context.Services.Where(x => !x.IsDeleted).FirstOrDefault()?.Id;
+            }
+            if (!ModelState.IsValid)
             {
                 return View(updatedSocial);
             }

@@ -15,10 +15,11 @@ namespace EduHome.App.Services.Implementations
             _context = context;
             _env = env;
         }
-
         public async Task<Service> GetSetting()
         {
-            Service? service = await _context.Services.FirstOrDefaultAsync();
+            Service? service = await _context.Services
+                .Include(x=>x.Socials)
+                   .FirstOrDefaultAsync();
             return service;
         }
     }

@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="col-md-8 col-sm-8 col-xs-12">
                         <div class="header-top-left">
-                            <p>HAVE ANY QUESTION ?  +880 5698  598  6587</p>
+                            <p>HAVE ANY QUESTION ?  @Service.Number1</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-12">
@@ -181,10 +181,14 @@
                             <p>I must explain to you how all this mistaken idea of denoung pleure and praising pain was born and give you a coete account of the system. </p>
                             <div class="footer-social">
                                 <ul>
-                                    <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
+                                    @foreach (var link in Service.Socials)
+                                    {
+                                        <li><a href="@link.Link"><i class="zmdi zmdi-@link.Name"></i></a></li>
+                                    }
+                                 @*   <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
                                     <li><a href="#"><i class="zmdi zmdi-pinterest"></i></a></li>
                                     <li><a href="#"><i class="zmdi zmdi-vimeo"></i></a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>*@
                                 </ul>
                             </div>
                         </div>
@@ -195,7 +199,7 @@
                             <ul>
                                 <li><a href="#">addmission</a></li>
                                 <li><a href="#">Academic Calender</a></li>
-                                <li><a href="event.html">Event List</a></li>
+                                <li><a asp-action="index" asp-controller="event">Event List</a></li>
                                 <li><a href="#">Hostel &amp; Dinning</a></li>
                                 <li><a href="#">TimeTable</a></li>
                             </ul>
@@ -205,11 +209,11 @@
                         <div class="single-widget">
                             <h3>useful links</h3>
                             <ul>
-                                <li><a href="course.html">our courses</a></li>
-                                <li><a href="about.html">about us</a></li>
-                                <li><a href="teacher.html">teachers &amp; faculty</a></li>
-                                <li><a href="#">teams &amp; conditions</a></li>
-                                <li><a href="event.html">our events</a></li>
+                                <li><a asp-action="index" asp-controller="course">our courses</a></li>
+                                <li><a asp-action="index" asp-controller="about">about us</a></li>
+                                <li><a asp-action="index" asp-controller="teacher">teachers &amp; faculty</a></li>
+                                <li><a asp-action="index" asp-controller="blog">teams &amp; conditions</a></li>
+                                <li><a asp-action="index" asp-controller="event">our events</a></li>
                             </ul>
                         </div>
                     </div>

@@ -48,7 +48,12 @@ namespace EduHome.App.Areas.Admin.Controllers
 			ViewBag.Positions = await _context.Positions.Where(p => !p.IsDeleted).ToListAsync();
 			ViewBag.Degrees = await _context.Degrees.Where(p => !p.IsDeleted).ToListAsync();
 			ViewBag.Hobbies = await _context.Hobbies.Where(p => !p.IsDeleted).ToListAsync();
-			if (!ModelState.IsValid)
+            if (teacher.PositionId == 0 || teacher.DegreeId == 0)
+            {
+                ModelState.AddModelError("", "Every column must be selected");
+                return View(teacher);
+            }
+            if (!ModelState.IsValid)
             {
                 return View(teacher);
             }
@@ -125,6 +130,11 @@ namespace EduHome.App.Areas.Admin.Controllers
 			   .Include(x => x.Position)
 			   .Include(x => x.Degree)
 		 .FirstOrDefaultAsync();
+            if(teacher.PositionId == 0 || teacher.DegreeId == 0)
+            {
+                ModelState.AddModelError("", "Every column must be selected");
+                return View(updatedTeacher);
+            }
 			if (teacher is null)
             {
                 return View(teacher);

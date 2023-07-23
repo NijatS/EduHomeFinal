@@ -31,5 +31,6 @@ namespace EduHome.Core.Entities
 
         [NotMapped]
         public IFormFile? file { get; set; }
+        public List<Social>? Socials { get; set; }
     }
 }
